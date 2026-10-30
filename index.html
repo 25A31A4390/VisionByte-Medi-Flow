@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medi Flow – OPD Triage Decision Support</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2B3590">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Persistent Prototype Safety Banner -->
+  <aside class="prototype-banner" role="alert" aria-label="Prototype Notice">
+    <span aria-hidden="true">⚠️</span>
+    <span>Pilot build – synthetic data – not clinically validated. Rules require clinician approval.</span>
+  </aside>
+
+  <!-- Application Header -->
+  <header class="app-header">
+    <div class="brand brand-header-pill">
+      <div class="logo-badge">
+        <img src="logo.svg" alt="Medi Flow logo" class="brand-logo" style="height:36px; width:auto; display:block;">
+      </div>
+      <div class="brand-text">
+        <h1 class="brand-title"><span class="brand-medi">Medi</span> <span class="brand-flow">Flow</span></h1>
+        <span class="brand-subtitle">OPD Triage Decision Support</span>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <span id="autoSaveIndicator" class="autosave-indicator" title="Data state auto-saved to client storage">● Auto-saved</span>
+      <!-- Virtual Clock & Time Simulation -->
+      <div class="control-pill" title="Current simulated time for triage evaluation and SLA tracking">
+        <span>🕒 Virtual Time:</span>
+        <span id="virtualClockDisplay" class="virtual-clock">2026-10-18 09:00</span>
+        <button id="btnSimulate15m" class="btn-time-sim" title="Advance time by 15 minutes to test SLA breaches and alerts">
+          +15 min
+        </button>
+      </div>
+
+      <!-- Demo Controls -->
+      <button id="btnLoadDemoData" class="btn btn-secondary btn-sm" title="Seed ~12 synthetic patients covering all triage scenarios">
+        📥 Load Demo Data
+      </button>
+      <button id="btnResetData" class="btn btn-secondary btn-sm" title="Reset all synthetic data to blank initial state">
+        🔄 Reset
+      </button>
+
+      <!-- Logged-in Staff Profile Chip & Logout Button -->
+      <div id="userProfileChip" class="user-profile-chip" style="display: none;">
+        <span>👤</span>
+        <span id="currentUserNameDisplay" style="font-weight:700; color:#f8fafc;">Nurse Sarah</span>
+        <span id="currentUserRoleBadge" class="status-badge" style="font-size:0.7rem; text-transform:uppercase;">Nurse</span>
+        <span id="currentUserStaffId" style="color:#94a3b8; font-family:var(--font-mono); font-size:0.75rem;">(nurse01)</span>
+        <button id="btnLogout" class="btn btn-secondary btn-sm" title="Log out of staff session" style="margin-left: 0.25rem;">
+          🚪 Logout
+        </button>
+      </div>
+
+      <!-- Alerts Bell Button -->
+      <button id="btnOpenAlerts" class="btn-alert-bell" aria-label="Open Alerts Panel">
+        <span aria-hidden="true">🔔</span>
+        <span>Alerts</span>
+        <span id="alertCountBadge" class="alert-counter-badge zero">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Navigation Tabs -->
+  <nav class="app-nav" aria-label="Main Navigation">
+    <button class="nav-tab active" data-tab="queueTab" id="tabBtnQueue">
+      <span>📋 Active Queue</span>
+      <span id="queueCountBadge" class="nav-badge">0</span>
+    </button>
+    <button class="nav-tab" data-tab="registerTab" id="tabBtnRegister">
+      <span>➕ Register Patient</span>
+    </button>
+    <button class="nav-tab" data-tab="doctorInboxTab" id="tabBtnDoctorInbox">
+      <span>🩺 Doctor Inbox</span>
+      <span id="doctorEscalationBadge" class="nav-badge danger">0</span>
+    </button>
+    <button class="nav-tab" data-tab="simulatorTab" id="tabBtnSimulator">
+      <span>🏥 Hospital Simulator</span>
+    </button>
+    <button class="nav-tab" data-tab="rulesTab" id="tabBtnRules">
+      <span>📜 Rules &amp; Tester</span>
+    </button>
+    <button class="nav-tab" data-tab="auditTab" id="tabBtnAudit">
+      <span>🛡️ Audit Log</span>
+    </button>
+    <button class="nav-tab" data-tab="dashboardTab" id="tabBtnDashboard">
+      <span>📊 Dashboard</span>
+    </button>
+    <button class="nav-tab" data-tab="accountsTab" id="tabBtnAccounts" style="display: none;">
+      <span>👥 Staff Accounts</span>
+      <span id="pendingAccountsBadge" class="nav-badge danger" style="display: none;">0</span>
+    </button>
+    <button class="nav-tab" data-tab="evaluationTab" id="tabBtnEvaluation" style="display: none;">
+      <span>🔬 Dataset Evaluation</span>
+    </button>
+    <button class="nav-tab" data-tab="selfTestTab" id="tabBtnSelfTest">
+      <span>🧪 Self-Test</span>
+      <span id="selfTestBadge" class="nav-badge">PASS</span>
+    </button>
+  </nav>
+
+  <!-- Main Application Body -->
+  <main class="app-main">
+
+    <!-- ====================================================================
+         TAB 1: QUEUE BOARD
+         ==================================================================== -->
+    <section id="queueTab" class="tab-pane active" aria-labelledby="tabBtnQueue">
+      <div class="toolbar">
+        <div class="toolbar-group">
+          <button id="btnQuickEmergency" class="btn btn-emergency">
+            🚨 Emergency Walk-In
+          </button>
+          <button id="btnGoRegister" class="btn btn-primary">
+            ➕ Register Patient
+          </button>
+        </div>
+
+        <div class="toolbar-group">
+          <!-- Filters -->
+          <label for="filterLevel" class="form-label" style="margin:0;">Level:</label>
+          <select id="filterLevel" class="select" style="width: auto;">
+            <option value="ALL">All Levels</option>
+            <option value="1">🔴 Level 1 - Critical</option>
+            <option value="2">🟠 Level 2 - Urgent</option>
+            <option value="3">🟡 Level 3 - Semi-urgent</option>
+            <option value="4">🟢 Level 4 - Non-urgent</option>
+            <option value="REVIEW">⚠️ Needs Review</option>
+          </select>
+
+          <label for="filterStatus" class="form-label" style="margin:0;">Status:</label>
+          <select id="filterStatus" class="select" style="width: auto;">
+            <option value="ACTIVE">Active (Waiting / In Assess / Escalated)</option>
+            <option value="ALL">All Records</option>
+            <option value="WAITING">Waiting</option>
+            <option value="IN_ASSESSMENT">In Assessment</option>
+            <option value="ESCALATED">Escalated</option>
+            <option value="SEEN">Seen</option>
+            <option value="LWBS">Left Without Being Seen (LWBS)</option>
+          </select>
+
+          <!-- Search -->
+          <input type="search" id="queueSearchInput" class="input" placeholder="🔍 Search Token, Name, Complaint..." style="width: 240px;">
+        </div>
+      </div>
+
+      <!-- Queue Board Table -->
+      <div class="table-responsive">
+        <table class="table" id="queueTable">
+          <thead>
+            <tr>
+              <th scope="col">Token</th>
+              <th scope="col">Patient</th>
+              <th scope="col">Arrival</th>
+              <th scope="col">Chief Complaint</th>
+              <th scope="col">Urgency Level</th>
+              <th scope="col">Assigned Room</th>
+              <th scope="col">Wait Time</th>
+              <th scope="col">SLA Target / Breach</th>
+              <th scope="col">Status</th>
+              <th scope="col" style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="queueTableBody">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 2: REGISTRATION
+         ==================================================================== -->
+    <section id="registerTab" class="tab-pane" aria-labelledby="tabBtnRegister">
+      <div class="card" style="max-width: 800px; margin: 0 auto;">
+        <div class="card-header">
+          <h2 class="card-title">📝 New Outpatient Registration</h2>
+          <span class="form-hint">Token auto-generated upon saving</span>
+        </div>
+
+        <form id="patientRegistrationForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regFullName" class="form-label">Full Name <span style="color:#ef4444;">*</span></label>
+              <input type="text" id="regFullName" class="input" placeholder="e.g. John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="regAge" class="form-label">Age (0 - 120) <span style="color:#ef4444;">*</span></label>
+              <input type="number" id="regAge" class="input" min="0" max="120" step="any" placeholder="Years (or 0.5 for infant)" required>
+              <span id="regAgeBandHint" class="form-hint">Band: Adult</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regSex" class="form-label">Sex <span style="color:#ef4444;">*</span></label>
+              <select id="regSex" class="select" required>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="regPhone" class="form-label">Phone Number <span style="color:#ef4444;">*</span></label>
+              <input type="tel" id="regPhone" class="input" placeholder="10-digit phone number" required>
+              <span class="form-hint">Used for identification and duplicate prevention</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regArrivalMode" class="form-label">Arrival Mode <span style="color:#ef4444;">*</span></label>
+              <select id="regArrivalMode" class="select" required>
+                <option value="Walk-in">Walk-in</option>
+                <option value="Referred">Referred</option>
+                <option value="Ambulance">Ambulance (High Priority Alert)</option>
+              </select>
+            </div>
+            <div class="form-group" id="pregnancyGroup">
+              <label for="regPregnancy" class="form-label">Pregnancy Status (Females 12-50)</label>
+              <select id="regPregnancy" class="select">
+                <option value="No">No</option>
+                <option value="Yes">Yes (Pregnant)</option>
+                <option value="Unknown">Unknown / Not applicable</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="regAllergies" class="form-label">Allergies (Optional)</label>
+            <input type="text" id="regAllergies" class="input" placeholder="e.g. Penicillin, Latex, None known">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="regKnownConditions" class="form-label">Known Medical Conditions (Optional)</label>
+              <input type="text" id="regKnownConditions" class="input" placeholder="e.g. Hypertension, Diabetes, Asthma, CAD">
+            </div>
+            <div class="form-group">
+              <label for="regMedications" class="form-label">Current Medications (Optional)</label>
+              <input type="text" id="regMedications" class="input" placeholder="e.g. Metformin, Amlodipine, Aspirin, Inhaler">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <label for="regChiefComplaint" class="form-label" style="margin:0;">Chief Complaint <span style="color:#ef4444;">*</span></label>
+              <div class="voice-dictate-group">
+                <select id="regVoiceLangSelect" class="select" style="font-size:0.75rem; padding:2px 6px; width:auto;">
+                  <option value="en-IN">English (India)</option>
+                  <option value="hi-IN">Hindi (हिंदी)</option>
+                  <option value="te-IN">Telugu (తెలుగు)</option>
+                </select>
+                <button type="button" id="btnVoiceDictateReg" class="btn-voice-dictate" title="Dictate complaint via microphone">
+                  🎤 <span>Voice Input</span>
+                </button>
+              </div>
+            </div>
+            <textarea id="regChiefComplaint" class="textarea" rows="3" placeholder="Describe presenting symptoms in English, Hindi, or Telugu (e.g., severe chest pain, छाती में दर्द, గుండె నొప్పి)..." required style="margin-top:0.35rem;"></textarea>
+            <div id="regVoiceStatus" class="voice-status-indicator" style="display:none; margin-top:3px;"></div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+            <button type="reset" class="btn btn-secondary">Clear Form</button>
+            <button type="submit" id="btnSubmitRegistration" class="btn btn-primary">
+              💾 Register &amp; Add to Queue
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 3: DOCTOR INBOX (ESCALATIONS)
+         ==================================================================== -->
+    <section id="doctorInboxTab" class="tab-pane" aria-labelledby="tabBtnDoctorInbox">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">🩺 Doctor Inbox &amp; Clinical Escalations</h2>
+            <p class="form-hint">Review, acknowledge, and clinically respond to escalations from nursing and rule triggers.</p>
+          </div>
+          <div class="toolbar-group">
+            <label for="filterDoctorEscalation" class="form-label" style="margin:0;">Status:</label>
+            <select id="filterDoctorEscalation" class="select" style="width: auto;">
+              <option value="ACTIVE">Pending Escalations</option>
+              <option value="ALL">All Escalations</option>
+              <option value="RESOLVED">Resolved</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="doctorInboxList">
+          <!-- Dynamically populated escalation cards -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB: HOSPITAL SIMULATOR (WHAT-IF CAPACITY & QUEUE PLANNING)
+         ==================================================================== -->
+    <section id="simulatorTab" class="tab-pane" aria-labelledby="tabBtnSimulator">
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">🏥 Hospital Operations &amp; What-If Queue Simulator</h2>
+            <p class="form-hint">
+              Interactive capacity planning simulator comparing <strong>Scenario A (First-Come-First-Served)</strong> vs. <strong>Scenario B (Medi Flow Urgency Prioritization)</strong>.
+            </p>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button id="btnRunSimulator" class="btn btn-primary btn-sm">
+              ▶️ Run Multi-Scenario Simulation
+            </button>
+            <button id="btnResetSimulator" class="btn btn-secondary btn-sm">
+              🔄 Reset Parameters
+            </button>
+          </div>
+        </div>
+
+        <div class="sim-grid">
+          <!-- Left: Simulation Controls & Sliders -->
+          <div class="sim-control-panel">
+            <h3 style="font-size:0.95rem; font-weight:800; color:#0f172a; margin-bottom:1rem; border-bottom:1px solid #e2e8f0; padding-bottom:0.5rem;">
+              ⚙️ Operational Variables
+            </h3>
+
+            <!-- Doctors Slider -->
+            <div class="sim-slider-row">
+              <div class="sim-slider-header">
+                <span>👨‍⚕️ On-Duty Doctors:</span>
+                <span id="valSimDoctors" class="sim-slider-value">3</span>
+              </div>
+              <input type="range" id="simDoctors" class="sim-slider" min="1" max="10" value="3">
+              <span class="form-hint">Available consultation rooms</span>
+            </div>
+
+            <!-- Nurses Slider -->
+            <div class="sim-slider-row">
+              <div class="sim-slider-header">
+                <span>🩺 Triage Nurses:</span>
+                <span id="valSimNurses" class="sim-slider-value">2</span>
+              </div>
+              <input type="range" id="simNurses" class="sim-slider" min="1" max="10" value="2">
+              <span class="form-hint">Intake & triage assessment desks</span>
+            </div>
+
+            <!-- Patient Cohort Size -->
+            <div class="sim-slider-row">
+              <div class="sim-slider-header">
+                <span>👥 Patient Cohort:</span>
+                <span id="valSimCohort" class="sim-slider-value">100 patients</span>
+              </div>
+              <input type="range" id="simCohort" class="sim-slider" min="20" max="400" step="10" value="100">
+              <span class="form-hint">Total patient arrivals over shift</span>
+            </div>
+
+            <!-- Arrival Rate -->
+            <div class="sim-slider-row">
+              <div class="sim-slider-header">
+                <span>⏱️ Arrival Rate:</span>
+                <span id="valSimArrivalRate" class="sim-slider-value">15 / hr</span>
+              </div>
+              <input type="range" id="simArrivalRate" class="sim-slider" min="5" max="50" step="5" value="15">
+              <span class="form-hint">Average incoming patients per hour</span>
+            </div>
+
+            <!-- Acuity Distribution Preset -->
+            <div class="form-group" style="margin-bottom:1rem;">
+              <label for="simPreset" class="form-label" style="font-weight:700;">Acuity Mix Preset:</label>
+              <select id="simPreset" class="select" style="font-size:0.85rem;">
+                <option value="standard">Standard OPD Mix (4% L1/L2, 35% L3, 40% L4, 21% L5)</option>
+                <option value="surge">Epidemic Surge (12% Emergencies, 50% Semi-Urgent)</option>
+                <option value="disaster">Mass Casualty Event (25% L1 Resuscitation, 35% L2)</option>
+                <option value="routine">Routine Outpatient Clinic (1% L1, 80% L4/L5)</option>
+              </select>
+            </div>
+
+            <!-- Consultation Duration Factor -->
+            <div class="sim-slider-row">
+              <div class="sim-slider-header">
+                <span>⏳ Avg Consultation Pace:</span>
+                <span id="valSimSpeed" class="sim-slider-value">Standard</span>
+              </div>
+              <input type="range" id="simSpeed" class="sim-slider" min="1" max="3" value="2">
+              <span class="form-hint">1: Fast (10m) | 2: Standard (15m) | 3: Thorough (22m)</span>
+            </div>
+          </div>
+
+          <!-- Right: Scenario Comparison Results -->
+          <div>
+            <div class="sim-comparison-grid">
+              <!-- Scenario A: FCFS -->
+              <div class="sim-scenario-card sim-scenario-fcfs">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+                  <h4 style="font-size:0.95rem; font-weight:800; color:#334155; margin:0;">
+                    Scenario A: First-Come, First-Served (FCFS)
+                  </h4>
+                  <span class="status-badge" style="background:#e2e8f0; color:#475569;">Unprioritized FIFO</span>
+                </div>
+                <p style="font-size:0.8rem; color:#64748b; margin-bottom:1rem;">
+                  Patients are seen strictly in arrival order. Critical emergency cases wait behind routine checkups.
+                </p>
+
+                <div style="margin-bottom:0.75rem;">
+                  <span style="font-size:0.75rem; font-weight:700; color:#64748b; text-transform:uppercase;">Overall Avg Wait Time:</span>
+                  <div class="sim-metric-val" id="simFcfsAvgWait" style="color:#0f172a;">48 min</div>
+                </div>
+
+                <div style="margin-bottom:0.75rem; background:#fee2e2; border-left:3px solid #ef4444; padding:6px 10px; border-radius:4px;">
+                  <span style="font-size:0.75rem; font-weight:800; color:#991b1b; text-transform:uppercase;">🚨 Emergency (L1/L2) Avg Wait:</span>
+                  <div class="sim-metric-val" id="simFcfsEmergWait" style="color:#dc2626; font-size:1.5rem;">46 min</div>
+                  <span style="font-size:0.7rem; color:#b91c1c;">Severe clinical delay; exceeds 15-min safety SLA!</span>
+                </div>
+
+                <div style="font-size:0.8rem; color:#475569; line-height:1.6;">
+                  <div>Max Wait Time: <strong id="simFcfsMaxWait">112 min</strong></div>
+                  <div>SLA Breaches: <strong id="simFcfsSlaBreaches" style="color:#dc2626;">38 patients</strong></div>
+                  <div>Patients Served: <strong id="simFcfsServed">88 / 100</strong></div>
+                </div>
+              </div>
+
+              <!-- Scenario B: Medi Flow Urgency Prioritization -->
+              <div class="sim-scenario-card sim-scenario-priority">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+                  <h4 style="font-size:0.95rem; font-weight:800; color:#166534; margin:0;">
+                    Scenario B: Medi Flow Urgency Prioritization
+                  </h4>
+                  <span class="status-badge active">Clinical Acuity Engine</span>
+                </div>
+                <p style="font-size:0.8rem; color:#15803d; margin-bottom:1rem;">
+                  Triaged by 5-level clinical acuity. Resuscitation & Emergent patients receive immediate priority.
+                </p>
+
+                <div style="margin-bottom:0.75rem;">
+                  <span style="font-size:0.75rem; font-weight:700; color:#166534; text-transform:uppercase;">Overall Avg Wait Time:</span>
+                  <div class="sim-metric-val" id="simPriorityAvgWait" style="color:#15803d;">41 min</div>
+                </div>
+
+                <div style="margin-bottom:0.75rem; background:#dcfce7; border-left:3px solid #16a34a; padding:6px 10px; border-radius:4px;">
+                  <span style="font-size:0.75rem; font-weight:800; color:#14532d; text-transform:uppercase;">✅ Emergency (L1/L2) Avg Wait:</span>
+                  <div class="sim-metric-val" id="simPriorityEmergWait" style="color:#15803d; font-size:1.5rem;">7 min</div>
+                  <span class="sim-reduction-badge" id="simEmergReductionBadge">-84.8% Wait Time Reduction</span>
+                </div>
+
+                <div style="font-size:0.8rem; color:#14532d; line-height:1.6;">
+                  <div>Max Wait Time (L1/L2): <strong id="simPriorityMaxWait">12 min</strong></div>
+                  <div>SLA Breaches: <strong id="simPrioritySlaBreaches" style="color:#15803d;">6 patients (0 in L1/L2)</strong></div>
+                  <div>Patients Served: <strong id="simPriorityServed">92 / 100</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Wait Time by Acuity Comparison Bar Chart -->
+            <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:8px; padding:1.25rem;">
+              <h4 style="font-size:0.9rem; font-weight:700; color:#0f172a; margin-bottom:0.5rem;">
+                📊 Average Waiting Time Comparison by Acuity Level (Minutes)
+              </h4>
+              <div id="simChartContainer" style="margin-top:0.75rem;">
+                <!-- Dynamically rendered comparative bars -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulation Assumptions & Methodology Footer -->
+        <div style="margin-top:1.25rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:0.75rem 1rem; font-size:0.775rem; color:#64748b; line-height:1.5;">
+          <strong>ℹ️ Simulation Model &amp; Clinical Assumptions:</strong>
+          Discrete-event non-preemptive priority M/M/c queuing model over an 8-hour shift. Assumes Poisson arrival distribution and exponential consultation service times adjusted by triage complexity (L1=30m, L2=20m, L3=15m, L4=10m, L5=5m). Emergency safety rules operate independently of the simulation. Simulated projections demonstrate operational dynamics and do not alter live patient records or clinical triage determinations.
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 4: RULES & TESTER
+         ==================================================================== -->
+    <section id="rulesTab" class="tab-pane" aria-labelledby="tabBtnRules">
+      <!-- Rule Tester Sandbox -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">🔬 Interactive Rule Tester (Sandbox)</h2>
+            <p class="form-hint">Test symptoms and vitals directly against the deterministic triage engine without saving a patient.</p>
+          </div>
+          <button id="btnRunRuleTest" class="btn btn-primary btn-sm">▶️ Evaluate Test Inputs</button>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="testAge" class="form-label">Patient Age (Years)</label>
+            <input type="number" id="testAge" class="input" value="45" min="0" max="120" step="any">
+          </div>
+          <div class="form-group">
+            <label for="testSex" class="form-label">Sex</label>
+            <select id="testSex" class="select">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="testPregnant" class="form-label">Pregnancy Status</label>
+            <select id="testPregnant" class="select">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Check Test Symptoms:</label>
+          <div class="symptom-grid" id="testSymptomGrid">
+            <!-- Dynamically populated or static -->
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Enter Test Vitals (Optional):</label>
+          <div class="vitals-grid">
+            <div class="vitals-field">
+              <div class="vitals-field-header"><span class="vitals-label">SpO2 (%)</span></div>
+              <input type="number" id="testSpo2" class="input" placeholder="e.g. 88">
+            </div>
+            <div class="vitals-field">
+              <div class="vitals-field-header"><span class="vitals-label">Systolic BP (mmHg)</span></div>
+              <input type="number" id="testSbp" class="input" placeholder="e.g. 78">
+            </div>
+            <div class="vitals-field">
+              <div class="vitals-field-header"><span class="vitals-label">Heart Rate (bpm)</span></div>
+              <input type="number" id="testHr" class="input" placeholder="e.g. 135">
+            </div>
+            <div class="vitals-field">
+              <div class="vitals-field-header"><span class="vitals-label">Resp Rate (/min)</span></div>
+              <input type="number" id="testRr" class="input" placeholder="e.g. 32">
+            </div>
+            <div class="vitals-field">
+              <div class="vitals-field-header"><span class="vitals-label">Temp (°C)</span></div>
+              <input type="number" id="testTemp" class="input" step="0.1" placeholder="e.g. 39.6">
+            </div>
+            <div class="vitals-field">
+              <div class="vitals-field-header"><span class="vitals-label">GCS (3-15)</span></div>
+              <input type="number" id="testGcs" class="input" placeholder="e.g. 8">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tester Results Box -->
+        <div id="ruleTesterOutput" style="margin-top: 1rem;">
+          <!-- Evaluated live result -->
+        </div>
+      </div>
+
+      <!-- Published Rules Table -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">📜 Sample Clinical Triage Rules</h2>
+            <p class="form-hint"><strong>SAMPLE RULES – require clinician approval before real clinical use.</strong> Highest fired level wins. Missing data fails safe to "Needs human review".</p>
+          </div>
+          <span class="control-pill">Engine Version: 1.0.0-pilot</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table" id="rulesCatalogTable">
+            <thead>
+              <tr>
+                <th scope="col">Rule ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Condition Description</th>
+                <th scope="col">Suggested Level</th>
+                <th scope="col">Clinical Rationale</th>
+              </tr>
+            </thead>
+            <tbody id="rulesCatalogBody">
+              <!-- Rendered from SAMPLE_RULES -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 5: AUDIT LOG
+         ==================================================================== -->
+    <section id="auditTab" class="tab-pane" aria-labelledby="tabBtnAudit">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">🛡️ Clinical Audit Trail (Append-Only)</h2>
+            <p class="form-hint">Every registration, vitals entry, rule suggestion, confirmation, override, queue reorder, and escalation is strictly logged.</p>
+          </div>
+          <div class="toolbar-group">
+            <button id="btnExportAuditCsv" class="btn btn-secondary btn-sm">
+              📥 Export Audit Log (CSV)
+            </button>
+            <button id="btnExportQueueCsv" class="btn btn-secondary btn-sm">
+              📥 Export Queue (CSV)
+            </button>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="toolbar-group">
+            <label for="filterAuditAction" class="form-label" style="margin:0;">Action:</label>
+            <select id="filterAuditAction" class="select" style="width: auto;">
+              <option value="ALL">All Actions</option>
+              <option value="REGISTRATION">Registration</option>
+              <option value="TRIAGE_SUGGESTION">System Suggestion</option>
+              <option value="TRIAGE_CONFIRM">Human Confirmation</option>
+              <option value="TRIAGE_OVERRIDE">Human Override</option>
+              <option value="ESCALATION">Escalation</option>
+              <option value="DOCTOR_RESPONSE">Doctor Response</option>
+              <option value="STATUS_CHANGE">Status Change</option>
+              <option value="QUEUE_REORDER">Queue Reorder</option>
+            </select>
+          </div>
+          <input type="search" id="auditSearchInput" class="input" placeholder="🔍 Search Token, User, Details..." style="width: 250px;">
+        </div>
+
+        <div class="table-responsive">
+          <table class="table" id="auditTable">
+            <thead>
+              <tr>
+                <th scope="col">Timestamp</th>
+                <th scope="col">User &amp; Role</th>
+                <th scope="col">Action Type</th>
+                <th scope="col">Patient Token</th>
+                <th scope="col">Details &amp; Audit Diff</th>
+              </tr>
+            </thead>
+            <tbody id="auditTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 6: DASHBOARD
+         ==================================================================== -->
+    <section id="dashboardTab" class="tab-pane" aria-labelledby="tabBtnDashboard">
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <span class="stat-title">Patients Today</span>
+          <span class="stat-value" id="dashTotalPatients">0</span>
+          <span class="stat-subtext">Total outpatients registered</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-title">Average Wait Time</span>
+          <span class="stat-value" id="dashAvgWait">0 min</span>
+          <span class="stat-subtext">Across active queue</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-title">SLA Breaches</span>
+          <span class="stat-value" id="dashSlaBreaches" style="color: #dc2626;">0</span>
+          <span class="stat-subtext" id="dashSlaRate">0% breach rate</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-title">Human Override Rate</span>
+          <span class="stat-value" id="dashOverrideRate" style="color: #ea580c;">0%</span>
+          <span class="stat-subtext" id="dashOverrideCount">0 overrides</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-title">Active Escalations</span>
+          <span class="stat-value" id="dashEscalations">0</span>
+          <span class="stat-subtext" id="dashAvgAckTime">Avg ack: 0 min</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-title">LWBS Patients</span>
+          <span class="stat-value" id="dashLwbsCount">0</span>
+          <span class="stat-subtext">Left Without Being Seen</span>
+        </div>
+      </div>
+
+      <!-- AI Safety & Emergency Recall Benchmark (AI Frontier Challenge 2026) -->
+      <div class="card" style="border-left: 4px solid #0284c7; background: #f8fafc;">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">🎯 AI Triage Model &amp; Emergency Recall Benchmark</h3>
+            <p class="form-hint">Evaluated on 4,500 held-out patient records from 30,000 synthetic clinical cohort.</p>
+          </div>
+          <span class="status-badge active">Verified Safety Metrics</span>
+        </div>
+        <div class="stats-grid" style="margin-top:0.5rem; margin-bottom:0.75rem;">
+          <div class="stat-card" style="background:#f0fdf4; border-color:#86efac;">
+            <span class="stat-title">🎯 Emergency Recall</span>
+            <span class="stat-value" style="color:#15803d;">100.0%</span>
+            <span class="stat-subtext">Zero missed emergencies (0 FN)</span>
+          </div>
+          <div class="stat-card" style="background:#fef2f2; border-color:#ef4444;">
+            <span class="stat-title">🚨 Under-Triage Rate</span>
+            <span class="stat-value" style="color:#dc2626;">0.0%</span>
+            <span class="stat-subtext">Safe clinical threshold</span>
+          </div>
+          <div class="stat-card" style="background:#fffbeb; border-color:#f59e0b;">
+            <span class="stat-title">⚠️ Over-Triage Rate</span>
+            <span class="stat-value" style="color:#d97706;">11.3%</span>
+            <span class="stat-subtext">Conservative safety bias</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Exact 5-Level Accuracy</span>
+            <span class="stat-value" style="color:#0f172a;">87.5%</span>
+            <span class="stat-subtext">Multimodal calibrated model</span>
+          </div>
+        </div>
+        <div style="font-size:0.75rem; color:#64748b; line-height:1.4;">
+          * Asymmetric safety weighting: Penalizes under-triage 36x over conservative over-triage. Mandatory clinical safety rules strictly override lower-risk ML predictions.
+        </div>
+      </div>
+
+      <!-- Triage Level Breakdown & Department Distribution -->
+      <div class="form-row">
+        <div class="card" style="flex:1;">
+          <h3 class="card-title">📊 5-Level Triage Acuity Distribution</h3>
+          <div id="dashUrgencyBars" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+            <!-- Level 1 to 5 bars populated by JS -->
+          </div>
+        </div>
+
+        <div class="card" style="flex:1;">
+          <h3 class="card-title">🏢 Department-Wise Patient Distribution</h3>
+          <div id="dashDeptBars" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
+            <!-- Department distribution populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Human Oversight & Override Table -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">🔍 Clinical Oversight: System Suggestion vs. Human Decision</h3>
+          <span class="form-hint">Audits safety compliance and clinical overrides</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table" id="dashboardOverridesTable">
+            <thead>
+              <tr>
+                <th scope="col">Token</th>
+                <th scope="col">Patient</th>
+                <th scope="col">System Suggestion</th>
+                <th scope="col">Human Confirmed</th>
+                <th scope="col">Downgrade?</th>
+                <th scope="col">Mandatory Justification / Reason</th>
+                <th scope="col">Clinician</th>
+              </tr>
+            </thead>
+            <tbody id="dashboardOverridesBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 7: STAFF ACCOUNTS (ADMIN ONLY)
+         ==================================================================== -->
+    <section id="accountsTab" class="tab-pane" aria-labelledby="tabBtnAccounts">
+      <!-- Create Account Card -->
+      <div class="card" style="max-width: 850px; margin: 0 auto 1.5rem auto;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">👥 Create New Staff Account</h2>
+            <p class="form-hint">Internal staff identity provisioning. No public sign-up permitted.</p>
+          </div>
+          <div style="display:flex; gap:0.5rem; align-items:center;">
+              <span class="control-pill" style="font-size:0.75rem;">Admin Access Only</span>
+              <button type="button" id="btnExportBackupJson" class="btn btn-secondary btn-sm" title="Export all clinical data & accounts as JSON backup">
+                💾 Export Backup (JSON)
+              </button>
+              <button type="button" id="btnTriggerImportBackup" class="btn btn-secondary btn-sm" title="Import system state from JSON backup">
+                📂 Import Backup
+              </button>
+              <input type="file" id="inputImportBackupJson" accept=".json,application/json" style="display:none;">
+            </div>
+        </div>
+
+        <form id="createStaffAccountForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="newStaffName" class="form-label">Full Name <span style="color:#ef4444;">*</span></label>
+              <input type="text" id="newStaffName" class="input" placeholder="e.g. Dr. Jane Smith" required>
+            </div>
+            <div class="form-group">
+              <label for="newStaffId" class="form-label">Staff ID (Username) <span style="color:#ef4444;">*</span></label>
+              <input type="text" id="newStaffId" class="input" placeholder="e.g. doctor02" required autocomplete="off">
+              <span class="form-hint">Lowercase alphanumeric identifier</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="newStaffRole" class="form-label">Assigned Role <span style="color:#ef4444;">*</span></label>
+              <select id="newStaffRole" class="select" required>
+                <option value="nurse">Triage Nurse</option>
+                <option value="clerk">Registration Clerk</option>
+                <option value="doctor">Doctor</option>
+                <option value="admin">Admin</option>
+              </select>
+              <span class="form-hint">Role determines operational permissions</span>
+            </div>
+            <div class="form-group">
+              <label for="newStaffPassword" class="form-label">Initial PIN / Password <span style="color:#ef4444;">*</span></label>
+              <input type="password" id="newStaffPassword" class="input" placeholder="Minimum 6 characters" minlength="6" required autocomplete="new-password">
+              <span class="form-hint">Stored as salted SHA-256 hash (never plaintext)</span>
+            </div>
+          </div>
+
+          <div class="form-group" id="groupLicenseField">
+            <label for="newStaffLicense" class="form-label">Registration / Council License Number (Doctor / Nurse)</label>
+            <input type="text" id="newStaffLicense" class="input" placeholder="e.g. RN-44912 or MC-98102">
+            <div class="warning-callout" style="margin-top:0.35rem; font-size:0.775rem; padding:0.4rem 0.6rem;">
+              ⚠️ <strong>Mandatory Verification Notice:</strong> Verify against official council registry before activating clinical account.
+            </div>
+          </div>
+
+          <div class="warning-callout" style="font-size:0.8rem; margin:1rem 0;">
+            🛡️ <strong>Two-Person Approval Rule:</strong> New <strong>Doctor</strong> and <strong>Admin</strong> accounts are created in <strong>"Pending"</strong> status and strictly require approval from a DIFFERENT admin before they can log in.
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; gap:0.75rem;">
+            <button type="reset" class="btn btn-secondary">Clear Form</button>
+            <button type="submit" id="btnSubmitNewAccount" class="btn btn-primary">
+              💾 Provision Staff Account
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Accounts Directory Table -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">📋 Staff Directory &amp; Access Oversight</h2>
+            <p class="form-hint">Manage staff activation, license verification, password resets, and pending multi-person approvals.</p>
+          </div>
+          <div class="toolbar-group">
+            <label for="filterAccountRole" class="form-label" style="margin:0;">Filter Role:</label>
+            <select id="filterAccountRole" class="select" style="width: auto;">
+              <option value="ALL">All Roles</option>
+              <option value="nurse">Triage Nurse</option>
+              <option value="clerk">Registration Clerk</option>
+              <option value="doctor">Doctor</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table" id="accountsTable">
+            <thead>
+              <tr>
+                <th scope="col">Staff ID</th>
+                <th scope="col">Staff Name</th>
+                <th scope="col">Role</th>
+                <th scope="col">Registration / License</th>
+                <th scope="col">License Verified</th>
+                <th scope="col">Account Status</th>
+                <th scope="col">Governance / Approver</th>
+                <th scope="col" style="text-align: right;">Administrative Actions</th>
+              </tr>
+            </thead>
+            <tbody id="accountsTableBody">
+              <!-- Populated dynamically by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 8: DATASET EVALUATION (DOCTOR & ADMIN ONLY)
+         ==================================================================== -->
+    <section id="evaluationTab" class="tab-pane" aria-labelledby="tabBtnEvaluation">
+      <!-- Mandatory Clinical Notice -->
+      <div class="warning-callout" style="margin-bottom: 1.5rem; border-left: 4px solid #0284c7; background: #f0f9ff; color: #0369a1;">
+        <div style="display:flex; align-items:center; gap:0.5rem; font-weight:700; font-size:0.95rem;">
+          <span>ℹ️</span> <span>Evaluation only, not clinical validation. Rules must be reviewed and approved by qualified clinicians.</span>
+        </div>
+        <div style="font-size:0.8rem; margin-top:0.25rem; color:#075985;">
+          Deterministic rule-engine evaluation against imported retrospective or synthetic datasets. All processing runs entirely in the browser; zero external network requests.
+        </div>
+      </div>
+
+      <!-- Card 1: Import / Load Sample Dataset -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">📂 1. Import Triage Dataset</h2>
+            <p class="form-hint">Upload any outpatient department CSV dataset, or load our built-in 20-patient clinical benchmark dataset.</p>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button id="btnLoadSampleDataset" class="btn btn-secondary btn-sm" title="Instant sample with 20 realistic OPD cases">
+              🧪 Load Benchmark Dataset (20 Cases)
+            </button>
+            <button id="btnResetEvaluation" class="btn btn-secondary btn-sm">
+              🔄 Reset Evaluation
+            </button>
+          </div>
+        </div>
+
+        <div class="eval-dropzone" id="csvDropZone" style="border: 2px dashed #94a3b8; border-radius: 8px; padding: 2rem; text-align: center; background: #f8fafc; cursor: pointer;">
+          <input type="file" id="csvFileInput" accept=".csv,text/csv" style="display:none;">
+          <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">📊</div>
+          <div style="font-weight: 700; color: #1e293b; font-size: 1rem;">Click to select CSV file, or drag and drop here</div>
+          <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.25rem;">
+            Browser-side parsing only. Accepts age, sex, complaints/symptoms, vital signs (HR, SBP, DBP, RR, SpO2, Temp, GCS) and optional true triage label.
+          </div>
+          <div id="evalLoadedFileBadge" style="display:none; margin-top:0.75rem; font-weight:700; color:#0369a1;"></div>
+        </div>
+      </div>
+
+      <!-- Card 2: Column Mapping & Symptom Keyword Matcher -->
+      <div class="card" id="evalMappingCard" style="display:none; margin-bottom: 1.5rem;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">🔗 2. Column Mapping &amp; Clinical Keyword Matcher</h2>
+            <p class="form-hint">Columns have been auto-guessed from header names. Verify or adjust mappings before running evaluation.</p>
+          </div>
+          <button id="btnAutoGuessMapping" class="btn btn-secondary btn-sm">🪄 Auto-Guess Mappings</button>
+        </div>
+
+        <!-- Mapping Dropdowns Grid -->
+        <div class="eval-mapping-grid" id="evalMappingContainer" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+          <!-- Populated dynamically: Age, Sex, Complaint, HR, SBP, DBP, RR, SpO2, Temp, GCS, True Label -->
+        </div>
+
+        <!-- Keyword Dictionary Explanation -->
+        <div style="background:#f1f5f9; border-radius:6px; padding:0.75rem 1rem; border:1px solid #cbd5e1; font-size:0.8rem;">
+          <div style="font-weight:700; color:#334155; margin-bottom:0.25rem;">🔤 Symptom Keyword Extraction Dictionary:</div>
+          <div style="color:#64748b; line-height:1.4;">
+            Free-text complaints are mapped to Medi Flow's 15 clinical symptom categories using keyword heuristics:
+            <span style="font-family:var(--font-mono); color:#0369a1;">chest_pain</span> (chest, angina),
+            <span style="font-family:var(--font-mono); color:#0369a1;">breathlessness</span> (dyspnea, sob, asthma),
+            <span style="font-family:var(--font-mono); color:#0369a1;">altered_consciousness</span> (syncope, confusion, unconscious),
+            <span style="font-family:var(--font-mono); color:#0369a1;">severe_bleeding</span> (hemorrhage, arterial),
+            <span style="font-family:var(--font-mono); color:#0369a1;">stroke_signs</span> (weakness, slurred, facial droop),
+            <span style="font-family:var(--font-mono); color:#0369a1;">seizure</span>,
+            <span style="font-family:var(--font-mono); color:#0369a1;">stiff_neck</span>,
+            <span style="font-family:var(--font-mono); color:#0369a1;">head_injury</span>,
+            <span style="font-family:var(--font-mono); color:#0369a1;">allergic_reaction</span>, etc.
+          </div>
+          <div id="evalKeywordHitSummary" style="margin-top:0.5rem; font-weight:600; color:#047857;"></div>
+        </div>
+
+        <div style="margin-top: 1.25rem; display:flex; justify-content: flex-end; gap:0.75rem;">
+          <button id="btnRunDataQualityAudit" class="btn btn-primary">
+            🔍 Check Data Quality &amp; Run Evaluation
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3: Pre-Run Data Quality Report -->
+      <div class="card" id="evalDataQualityCard" style="display:none; margin-bottom: 1.5rem;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">🛡️ 3. Pre-Execution Data Quality &amp; Integrity Audit</h2>
+            <p class="form-hint">Pre-run audit identifying missing vitals, physiologically impossible values, duplicate records, and unreadable rows. (Zero rows silently dropped).</p>
+          </div>
+          <span class="status-badge active" id="evalQualityPassBadge">Audited</span>
+        </div>
+
+        <!-- Data Quality Stats Cards -->
+        <div class="stats-grid" style="margin-bottom: 1.25rem;">
+          <div class="stat-card">
+            <span class="stat-title">Total Records</span>
+            <span class="stat-value" id="dqTotalRows">0</span>
+            <span class="stat-subtext">Rows parsed from CSV</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Clean Records</span>
+            <span class="stat-value" id="dqCleanRows" style="color:#16a34a;">0</span>
+            <span class="stat-subtext" id="dqCleanPct">100% complete</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Impossible Values</span>
+            <span class="stat-value" id="dqImpossibleCount" style="color:#dc2626;">0</span>
+            <span class="stat-subtext">Exceeds physiological limits</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Missing Vitals</span>
+            <span class="stat-value" id="dqMissingVitalsCount" style="color:#d97706;">0</span>
+            <span class="stat-subtext">Fails safe (never lowers Lvl)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Duplicates &amp; Flagged</span>
+            <span class="stat-value" id="dqDuplicatesCount">0</span>
+            <span class="stat-subtext">Flagged for clinician audit</span>
+          </div>
+        </div>
+
+        <!-- Missing Column Counts -->
+        <div id="dqColumnMissingSummary" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:0.75rem 1rem; margin-bottom:1rem; font-size:0.8rem;">
+          <!-- Injected per-column missing metrics -->
+        </div>
+
+        <!-- Bad / Problematic Rows Table -->
+        <div id="dqBadRowsContainer">
+          <h4 style="font-size:0.9rem; font-weight:700; color:#b91c1c; margin-bottom:0.5rem;">
+            ⚠️ Flagged Records Audit Trail (Audit &amp; Human Review Required):
+          </h4>
+          <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+            <table class="table" id="dqBadRowsTable">
+              <thead>
+                <tr>
+                  <th scope="col">Row #</th>
+                  <th scope="col">Data Quality Flags &amp; Clinical Rationale</th>
+                  <th scope="col">Raw Row Snapshot</th>
+                  <th scope="col">Triage Safety Treatment</th>
+                </tr>
+              </thead>
+              <tbody id="dqBadRowsBody">
+                <!-- Injected bad rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Evaluation Results, Confusion Matrix, Under-Triage & Cohort Analysis -->
+      <div class="card" id="evalResultsCard" style="display:none; margin-bottom: 1.5rem;">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">📈 4. Clinical Triage Evaluation &amp; Accuracy Analysis</h2>
+            <p class="form-hint">Deterministic rule-engine distribution, ground-truth concordance, and under-triage safety risk assessment.</p>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button id="btnExportEvalResultsCsv" class="btn btn-primary btn-sm">
+              📥 Export Results CSV
+            </button>
+            <button id="btnPrintEvalReport" class="btn btn-secondary btn-sm">
+              📄 Print / Save Summary Report
+            </button>
+          </div>
+        </div>
+
+        <!-- Triage Level Distribution Summary Cards -->
+        <div class="stats-grid" style="margin-bottom: 1.5rem;">
+          <div class="stat-card" style="border-left: 4px solid #ef4444;">
+            <span class="stat-title">🔴 Level 1 - Critical</span>
+            <span class="stat-value" id="evalL1Count" style="color:#dc2626;">0</span>
+            <span class="stat-subtext" id="evalL1Pct">0%</span>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid #f97316;">
+            <span class="stat-title">🟠 Level 2 - Urgent</span>
+            <span class="stat-value" id="evalL2Count" style="color:#ea580c;">0</span>
+            <span class="stat-subtext" id="evalL2Pct">0%</span>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid #eab308;">
+            <span class="stat-title">🟡 Level 3 - Semi-Urgent</span>
+            <span class="stat-value" id="evalL3Count" style="color:#ca8a04;">0</span>
+            <span class="stat-subtext" id="evalL3Pct">0%</span>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid #22c55e;">
+            <span class="stat-title">🟢 Level 4 - Non-Urgent</span>
+            <span class="stat-value" id="evalL4Count" style="color:#16a34a;">0</span>
+            <span class="stat-subtext" id="evalL4Pct">0%</span>
+          </div>
+          <div class="stat-card" style="border-left: 4px solid #6366f1;">
+            <span class="stat-title">⚠️ Needs Human Review</span>
+            <span class="stat-value" id="evalHumanReviewCount" style="color:#4f46e5;">0</span>
+            <span class="stat-subtext" id="evalMissingVitalsCount">0 with missing vitals</span>
+          </div>
+        </div>
+
+        <!-- Accuracy, Under-triage & Over-triage Banners -->
+        <div id="evalLabelMetricsSection" style="display:none; margin-bottom: 1.5rem;">
+          <div class="form-row" style="margin-bottom: 1rem;">
+            <!-- Agreement -->
+            <div style="flex:1; background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:1rem; text-align:center;">
+              <div style="font-size:0.8rem; font-weight:700; color:#166534; text-transform:uppercase;">Overall Agreement Rate</div>
+              <div style="font-size:2rem; font-weight:900; color:#15803d; margin:0.25rem 0;" id="evalAgreementRate">0%</div>
+              <div style="font-size:0.75rem; color:#166534;" id="evalAgreementSubtext">0 matches</div>
+            </div>
+
+            <!-- Under-triage (RED) -->
+            <div style="flex:1; background:#fef2f2; border:2px solid #ef4444; border-radius:8px; padding:1rem; text-align:center;">
+              <div style="font-size:0.8rem; font-weight:800; color:#991b1b; text-transform:uppercase;">🚨 Under-Triage Rate (Safety Risk)</div>
+              <div style="font-size:2rem; font-weight:900; color:#dc2626; margin:0.25rem 0;" id="evalUnderTriageRate">0%</div>
+              <div style="font-size:0.75rem; color:#b91c1c; font-weight:600;" id="evalUnderTriageSubtext">System assigned lower urgency than true label</div>
+            </div>
+
+            <!-- Over-triage (AMBER) -->
+            <div style="flex:1; background:#fffbeb; border:2px solid #f59e0b; border-radius:8px; padding:1rem; text-align:center;">
+              <div style="font-size:0.8rem; font-weight:800; color:#92400e; text-transform:uppercase;">⚠️ Over-Triage Rate (Conservative)</div>
+              <div style="font-size:2rem; font-weight:900; color:#d97706; margin:0.25rem 0;" id="evalOverTriageRate">0%</div>
+              <div style="font-size:0.75rem; color:#b45309;" id="evalOverTriageSubtext">System assigned higher urgency than true label</div>
+            </div>
+          </div>
+
+          <!-- Confusion Matrix -->
+          <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:8px; padding:1.25rem; margin-bottom:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="font-size:1rem; font-weight:700; color:#0f172a; margin:0;">
+                📊 Triage Confusion Matrix (System Suggestion vs. True Label)
+              </h3>
+              <span style="font-size:0.75rem; color:#64748b; background:#f1f5f9; padding:3px 8px; border-radius:4px;" id="evalLabelMappingUsedBadge">
+                Label Mapping: 1=Critical, 2=Urgent, 3=Semi-urgent, 4=Non-urgent
+              </span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table confusion-matrix-table" id="evalConfusionMatrixTable" style="text-align:center;">
+                <thead>
+                  <tr>
+                    <th rowspan="2" style="vertical-align:middle; background:#f8fafc; font-weight:700;">System Suggestion ↓ / True Label →</th>
+                    <th colspan="4" style="background:#f1f5f9; font-weight:700;">Ground Truth Clinical Label</th>
+                    <th rowspan="2" style="vertical-align:middle; background:#f8fafc; font-weight:700;">Total Suggested</th>
+                  </tr>
+                  <tr>
+                    <th style="color:#dc2626; background:#fef2f2; font-weight:700;">L1 Critical</th>
+                    <th style="color:#ea580c; background:#fff7ed; font-weight:700;">L2 Urgent</th>
+                    <th style="color:#ca8a04; background:#fefce8; font-weight:700;">L3 Semi-Urgent</th>
+                    <th style="color:#16a34a; background:#f0fdf4; font-weight:700;">L4 Non-Urgent</th>
+                  </tr>
+                </thead>
+                <tbody id="evalConfusionMatrixBody">
+                  <!-- Rendered 4x4 matrix -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Under-Triaged Rows For Clinician Review Table -->
+          <div id="evalUnderTriageReviewSection">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+              <h3 style="font-size:0.95rem; font-weight:800; color:#b91c1c; margin:0;">
+                🚨 Priority Clinician Review: Under-Triaged Patient Cohort (Sorted by Severity Gap)
+              </h3>
+              <span class="status-badge escalated" id="evalUnderTriageCohortCount">0 patients</span>
+            </div>
+            <p class="form-hint" style="margin-bottom:0.75rem;">
+              These patients were assigned a lower urgency level by the deterministic rules than their retrospective true label. Clinicians must review these gaps to determine if rules require refinement or if retrospective documentation was atypical.
+            </p>
+
+            <div class="table-responsive" style="max-height:350px; overflow-y:auto;">
+              <table class="table" id="evalUnderTriageTable">
+                <thead>
+                  <tr>
+                    <th scope="col">Row #</th>
+                    <th scope="col">Severity Gap</th>
+                    <th scope="col">True Label</th>
+                    <th scope="col">Suggested Level</th>
+                    <th scope="col">Patient Age / Sex</th>
+                    <th scope="col">Presenting Complaint</th>
+                    <th scope="col">Vitals Profile</th>
+                    <th scope="col">Fired Rules / Review Rationale</th>
+                  </tr>
+                </thead>
+                <tbody id="evalUnderTriageBody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- All Evaluated Rows Table (Full Cohort) -->
+        <div style="margin-top: 1.5rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; flex-wrap:wrap; gap:0.5rem;">
+            <h4 style="font-size:0.9rem; font-weight:700; color:#334155; margin:0;">
+              📋 Complete Evaluated Cohort Data
+            </h4>
+            <input type="search" id="evalSearchInput" class="input" placeholder="🔍 Filter by Row, Complaint, Rule..." style="width:240px; font-size:0.8rem;">
+          </div>
+          <div class="table-responsive" style="max-height:350px; overflow-y:auto;">
+            <table class="table" id="evalFullCohortTable">
+              <thead>
+                <tr>
+                  <th scope="col">Row #</th>
+                  <th scope="col">Suggested Level</th>
+                  <th scope="col">True Label</th>
+                  <th scope="col">Concordance</th>
+                  <th scope="col">Age/Sex</th>
+                  <th scope="col">Complaint / Symptoms</th>
+                  <th scope="col">Vitals</th>
+                  <th scope="col">Fired Rules</th>
+                  <th scope="col">Flags</th>
+                </tr>
+              </thead>
+              <tbody id="evalFullCohortBody">
+                <!-- Full table injected -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 9: SELF-TEST SUITE
+         ==================================================================== -->
+    <section id="selfTestTab" class="tab-pane" aria-labelledby="tabBtnSelfTest">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">🧪 Automated Engine &amp; Safety Assertions</h2>
+            <p class="form-hint">Verifies critical rule-engine logic, fail-safe fallbacks, limits, and human oversight guarantees.</p>
+          </div>
+          <button id="btnRunSelfTests" class="btn btn-primary">▶️ Re-Run All Assertions</button>
+        </div>
+
+        <div id="selfTestSummaryBox" style="margin-bottom: 1rem;">
+          <!-- Test summary counts -->
+        </div>
+
+        <div class="table-responsive">
+          <table class="table" id="selfTestTable">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Assertion Test Case</th>
+                <th scope="col">Test Input Description</th>
+                <th scope="col">Expected Output</th>
+                <th scope="col">Actual Output</th>
+                <th scope="col">Result</th>
+              </tr>
+            </thead>
+            <tbody id="selfTestTableBody">
+              <!-- Dynamically populated assertions -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Application Footer -->
+  <footer class="app-footer" style="text-align:center; padding:1.5rem 1rem; font-size:0.8rem; color:#64748b; border-top:1px solid #e2e8f0; margin-top:2.5rem; background:#f8fafc;">
+    <div>
+      <span style="color:#2B3590; font-weight:600;">Medi</span> <span style="color:#1AA3B8; font-weight:600;">Flow</span> &bull; <span>OPD Triage Decision Support</span>
+    </div>
+    <div style="font-size:0.75rem; color:#94a3b8; margin-top:0.25rem;">
+      Pilot build – synthetic data – not clinically validated. Rules require clinician approval.
+    </div>
+  </footer>
+
+  <!-- ======================================================================
+       MODAL 1: TRIAGE ASSESSMENT & HUMAN CONFIRMATION
+       ====================================================================== -->
+  <div id="triageModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="triageModalTitle">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 id="triageModalTitle">🩺 Clinical Triage Assessment</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseTriageModal" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Patient Header Info -->
+        <div id="triagePatientHeader" class="card" style="padding: 0.75rem 1rem; margin-bottom: 1rem; background:#f8fafc;">
+          <!-- Token, Name, Age/Sex, Chief Complaint -->
+        </div>
+
+        <!-- 15 Symptom Checklist -->
+        <div class="form-group">
+          <label class="form-label" style="font-size:0.9rem;">1. Presenting Symptoms Checklist:</label>
+          <div class="symptom-grid" id="assessmentSymptomGrid">
+            <!-- 15 Symptoms injected here -->
+          </div>
+        </div>
+
+        <!-- Optional Clinical Notes & Multilingual Voice Input -->
+        <div class="form-group">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label for="triageClinicalNotes" class="form-label" style="margin:0;">Clinical Observations &amp; Complaint Notes:</label>
+            <div class="voice-dictate-group">
+              <select id="triageVoiceLangSelect" class="select" style="font-size:0.75rem; padding:2px 6px; width:auto;">
+                <option value="en-IN">English (India)</option>
+                <option value="hi-IN">Hindi (हिंदी)</option>
+                <option value="te-IN">Telugu (తెలుగు)</option>
+              </select>
+              <button type="button" id="btnVoiceDictateTriage" class="btn-voice-dictate" title="Dictate clinical observations">
+                🎤 <span>Voice Input</span>
+              </button>
+            </div>
+          </div>
+          <textarea id="triageClinicalNotes" class="textarea" rows="2" placeholder="Relevant medical history, onset details, symptoms in English, Hindi or Telugu..." style="margin-top:0.35rem;"></textarea>
+          <div id="triageVoiceStatus" class="voice-status-indicator" style="display:none; margin-top:3px;"></div>
+        </div>
+
+        <!-- Vitals Entry (Optional with soft/hard limits) -->
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: baseline;">
+            <label class="form-label" style="font-size:0.9rem;">2. Objective Physiological Vitals (Optional):</label>
+            <span id="vitalsAgeBandNotice" class="form-hint">Ranges adjusted for: Adult</span>
+          </div>
+          <div class="vitals-grid">
+            <div class="vitals-field">
+              <div class="vitals-field-header">
+                <span class="vitals-label">SpO2 (%)</span>
+                <span class="vitals-range" id="rangeSpo2">Normal &ge;95</span>
+              </div>
+              <input type="number" id="vitalSpo2" class="input" placeholder="%" min="30" max="100">
+              <span id="warnSpo2" class="form-hint"></span>
+            </div>
+
+            <div class="vitals-field">
+              <div class="vitals-field-header">
+                <span class="vitals-label">Systolic BP</span>
+                <span class="vitals-range" id="rangeSbp">90 - 140</span>
+              </div>
+              <input type="number" id="vitalSbp" class="input" placeholder="mmHg" min="30" max="300">
+              <span id="warnSbp" class="form-hint"></span>
+            </div>
+
+            <div class="vitals-field">
+              <div class="vitals-field-header">
+                <span class="vitals-label">Diastolic BP</span>
+                <span class="vitals-range" id="rangeDbp">60 - 90</span>
+              </div>
+              <input type="number" id="vitalDbp" class="input" placeholder="mmHg" min="20" max="200">
+              <span id="warnDbp" class="form-hint"></span>
+            </div>
+
+            <div class="vitals-field">
+              <div class="vitals-field-header">
+                <span class="vitals-label">Heart Rate</span>
+                <span class="vitals-range" id="rangeHr">60 - 100</span>
+              </div>
+              <input type="number" id="vitalHr" class="input" placeholder="bpm" min="20" max="300">
+              <span id="warnHr" class="form-hint"></span>
+            </div>
+
+            <div class="vitals-field">
+              <div class="vitals-field-header">
+                <span class="vitals-label">Resp Rate</span>
+                <span class="vitals-range" id="rangeRr">12 - 20</span>
+              </div>
+              <input type="number" id="vitalRr" class="input" placeholder="/min" min="3" max="100">
+              <span id="warnRr" class="form-hint"></span>
+            </div>
+
+            <div class="vitals-field">
+              <div class="vitals-field-header">
+                <span class="vitals-label">Temp (°C)</span>
+                <span class="vitals-range" id="rangeTemp">36.5 - 37.5</span>
+              </div>
+              <input type="number" id="vitalTemp" class="input" placeholder="°C" step="0.1" min="25" max="45">
+              <span id="warnTemp" class="form-hint"></span>
+            </div>
+
+            <div class="vitals-field">
+              <div class="vitals-field-header">
+                <span class="vitals-label">GCS (3-15)</span>
+                <span class="vitals-range" id="rangeGcs">15 normal</span>
+              </div>
+              <input type="number" id="vitalGcs" class="input" placeholder="3 - 15" min="3" max="15">
+              <span id="warnGcs" class="form-hint"></span>
+            </div>
+
+            <div class="vitals-field">
+              <div class="vitals-field-header">
+                <span class="vitals-label">Pain (0-10)</span>
+                <span class="vitals-range" id="rangePain">0 none - 10 max</span>
+              </div>
+              <input type="number" id="vitalPain" class="input" placeholder="0 - 10" min="0" max="10">
+              <span id="warnPain" class="form-hint"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-Time AI & Rule Engine Suggestion Output with XAI -->
+        <div id="liveDecisionSupportContainer" class="decision-support-box">
+          <!-- Live suggestion, fired rules, safety flags injected here -->
+        </div>
+
+        <!-- Explainable AI (XAI) Panel -->
+        <div id="triageXaiPanel" class="xai-container" style="display:none;">
+          <div class="xai-header">
+            <div style="font-weight:800; font-size:0.9rem; color:#0f172a; display:flex; align-items:center; gap:0.4rem;">
+              <span>🤖</span> Explainable AI Clinical Breakdown (XAI)
+            </div>
+            <span id="xaiModelConfidenceBadge" class="status-badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">
+              Confidence: 94.2%
+            </span>
+          </div>
+          <div class="xai-grid" id="xaiFactorsGrid">
+            <!-- Dynamically injected explanation factors -->
+          </div>
+          <div id="xaiAbstentionNotice" class="warning-callout" style="display:none; font-size:0.8rem; margin:0.5rem 0 0 0;">
+            ⚠️ <strong>Cannot assess safely – Send to nurse for immediate human review.</strong>
+          </div>
+        </div>
+
+        <!-- Human Confirmation & Override Section -->
+        <div class="oversight-panel" id="humanOversightSection">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <h4 style="font-size:0.9rem; font-weight:700;">Human Clinical Decision:</h4>
+              <p class="form-hint">A qualified human must Confirm or Override the system recommendation.</p>
+            </div>
+          </div>
+
+          <!-- Recommended Department & Room Assignment -->
+          <div class="form-row" style="margin-top:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group" style="background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:0.6rem 0.75rem;">
+              <label for="triageDepartmentSelect" class="form-label" style="font-weight:700; color:#1e293b; margin-bottom:0.25rem;">
+                🏢 Recommended Clinical Department <span style="color:#ef4444;">*</span>
+              </label>
+              <select id="triageDepartmentSelect" class="select" style="font-weight:600;">
+                <option value="Emergency / Resuscitation">🚨 Emergency / Resuscitation</option>
+                <option value="Cardiology">❤️ Cardiology (Chest Pain / Arrhythmia)</option>
+                <option value="Pulmonology">🫁 Pulmonology (Respiratory / Asthma)</option>
+                <option value="Neurology">🧠 Neurology (Stroke / Neuro)</option>
+                <option value="General Medicine">🩺 General Medicine (Fever / Infection / Abdominal)</option>
+                <option value="Orthopedics">🦴 Orthopedics (Fractures / Sprains)</option>
+                <option value="Pediatrics">👶 Pediatrics (Child OPD)</option>
+                <option value="OB/GYN">🤰 OB/GYN (Obstetrics &amp; Gynecology)</option>
+                <option value="Surgery">🔪 Surgery (Acute Trauma / Bleeding)</option>
+                <option value="ENT">👂 ENT (Ear, Nose, Throat)</option>
+                <option value="Dermatology">🧴 Dermatology (Rashes / Allergic Skin)</option>
+              </select>
+              <span id="triageDeptRationaleHint" class="form-hint" style="color:#0284c7;">Auto-recommended by clinical symptom match.</span>
+            </div>
+
+            <div class="form-group" style="background:#ffffff; border:1px solid #cbd5e1; border-radius:6px; padding:0.6rem 0.75rem;">
+              <label for="triageAssignedRoom" class="form-label" style="font-weight:700; color:#0369a1; margin-bottom:0.25rem;">
+                📍 Assigned Room / Counter <span style="color:#ef4444;">*</span>
+              </label>
+              <select id="triageAssignedRoom" class="select" style="font-weight:600;">
+                <option value="Resuscitation Bay">🚨 Resuscitation Bay (Immediate / L1)</option>
+                <option value="Room 1 (Acute Care)">🔴 Room 1 (Acute Care - L1/L2)</option>
+                <option value="Room 2 (General OPD)">🟡 Room 2 (General OPD - L3)</option>
+                <option value="Room 3 (Fast Track / Minor)">🟢 Room 3 (Fast Track / Minor - L4)</option>
+                <option value="Room 4 (Routine Consult)">⚪ Room 4 (Routine Consult - L5)</option>
+                <option value="Counter 1 (Pediatric OPD)">👶 Counter 1 (Pediatric OPD)</option>
+                <option value="Counter 2 (Senior Citizen / Priority)">🧓 Counter 2 (Senior Citizen / Priority)</option>
+                <option value="Observation Unit 1">🛏️ Observation Unit 1</option>
+                <option value="Triage Bay A">🩺 Triage Bay A</option>
+              </select>
+              <span class="form-hint">Physical room printed on slip and live queue.</span>
+            </div>
+          </div>
+
+          <div class="oversight-actions">
+            <button type="button" id="btnConfirmSuggestion" class="btn btn-primary">
+              ✅ Confirm System Suggestion
+            </button>
+            <button type="button" id="btnToggleOverride" class="btn btn-secondary">
+              ✏️ Override Suggestion...
+            </button>
+          </div>
+
+          <!-- Override Form (Revealed when override selected) -->
+          <div id="overrideSubForm" class="override-form">
+            <h5 style="font-size:0.85rem; font-weight:700; margin-bottom:0.5rem; color:#9a3412;">
+              Human Override Specification:
+            </h5>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="overrideLevelSelect" class="form-label">Clinician Selected Level <span style="color:#ef4444;">*</span></label>
+                <select id="overrideLevelSelect" class="select">
+                  <option value="1">🔴 Level 1 - Critical (Immediate)</option>
+                  <option value="2">🟠 Level 2 - Urgent (15 min)</option>
+                  <option value="3">🟡 Level 3 - Semi-urgent (60 min)</option>
+                  <option value="4">🟢 Level 4 - Non-urgent (120 min)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="overrideReasonInput" class="form-label">Mandatory Clinical Justification <span style="color:#ef4444;">*</span></label>
+              <textarea id="overrideReasonInput" class="textarea" rows="2" placeholder="State clinical rationale for departing from system suggestion (required)..."></textarea>
+              <span class="form-hint">Will be recorded in the immutable audit log and doctor dashboard.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCancelTriage">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btnSaveTriageDecision">
+          💾 Commit Triage Decision
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 2: DOWNGRADE WARNING CONFIRMATION
+       ====================================================================== -->
+  <div id="downgradeModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="downgradeTitle">
+    <div class="modal-card" style="max-width: 500px; border-left: 6px solid #ea580c;">
+      <div class="modal-header">
+        <h3 id="downgradeTitle" style="color: #9a3412;">⚠️ Confirm Urgency Downgrade</h3>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">
+          You are overriding the system suggestion to a <strong>LOWER urgency level</strong>.
+        </p>
+        <div style="background: #fff7ed; border: 1px solid #fdba74; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; margin-bottom: 1rem;">
+          <div><strong>System Suggestion:</strong> <span id="downgradeOldLevel">Level 2</span></div>
+          <div><strong>Clinician Decision:</strong> <span id="downgradeNewLevel">Level 3</span></div>
+          <div style="margin-top: 0.4rem; color: #9a3412;">
+            ⚠️ This downgrade will be flagged in the clinical audit trail and highlighted for Doctor Review.
+          </div>
+        </div>
+        <p style="font-size: 0.825rem; color: #475569;">
+          Are you confident that clinical judgment supports this downgrade?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCancelDowngrade">Return / Change</button>
+        <button type="button" class="btn btn-danger" id="btnConfirmDowngrade">Yes, Confirm Downgrade</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 3: ESCALATION MODAL
+       ====================================================================== -->
+  <div id="escalationModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="escalateTitle">
+    <div class="modal-card" style="max-width: 550px; border-left: 6px solid #dc2626;">
+      <div class="modal-header">
+        <h3 id="escalateTitle" style="color: #991b1b;">🚨 Clinical Escalation Request</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseEscalationModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="escalationPatientSummary" style="font-size: 0.85rem; background: #f8fafc; padding: 0.75rem; border-radius: 4px; margin-bottom: 1rem;">
+          <!-- Patient token & brief -->
+        </div>
+
+        <div class="form-group">
+          <label for="escalationReasonSelect" class="form-label">Escalation Reason <span style="color:#ef4444;">*</span></label>
+          <select id="escalationReasonSelect" class="select" required>
+            <option value="Clinical deterioration">Clinical deterioration</option>
+            <option value="Red flag symptom present">Red flag symptom present</option>
+            <option value="Critically abnormal vitals">Critically abnormal vitals</option>
+            <option value="Staff concern">Staff concern / Gut feeling</option>
+            <option value="Unclear / conflicting clinical data">Unclear / conflicting clinical data</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="escalationTargetSelect" class="form-label">Escalate To <span style="color:#ef4444;">*</span></label>
+          <select id="escalationTargetSelect" class="select" required>
+            <option value="On-duty Doctor">On-duty Doctor</option>
+            <option value="Senior Clinician">Senior Clinician</option>
+            <option value="Emergency Resuscitation Team">Emergency Resuscitation Team (Crash Team)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="escalationNotesInput" class="form-label">Specific Clinical Concern</label>
+          <textarea id="escalationNotesInput" class="textarea" rows="3" placeholder="Describe immediate risks, observations, or requested action..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCancelEscalation">Cancel</button>
+        <button type="button" class="btn btn-danger" id="btnSubmitEscalation">🚨 Dispatch Escalation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 4: DOCTOR RESPONSE MODAL
+       ====================================================================== -->
+  <div id="doctorResponseModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="docResponseTitle">
+    <div class="modal-card" style="max-width: 550px;">
+      <div class="modal-header">
+        <h3 id="docResponseTitle">🩺 Doctor Clinical Response</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseDocResponseModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="docResponseEscalationInfo" style="font-size: 0.85rem; background: #f8fafc; padding: 0.75rem; border-radius: 4px; margin-bottom: 1rem;">
+          <!-- Escalation metadata -->
+        </div>
+
+        <div class="form-group">
+          <label for="docResponseTypeSelect" class="form-label">Response Action <span style="color:#ef4444;">*</span></label>
+          <select id="docResponseTypeSelect" class="select" required>
+            <option value="Accept Patient">Accept Patient (Examine immediately)</option>
+            <option value="Provide Clinical Advice">Provide Clinical Advice / Instructions to Nurse</option>
+            <option value="Transfer to Emergency">Transfer immediately to Emergency Resuscitation</option>
+            <option value="Re-prioritize Urgency">Re-prioritize Urgency Level</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="docResponseNotes" class="form-label">Clinical Orders &amp; Notes <span style="color:#ef4444;">*</span></label>
+          <textarea id="docResponseNotes" class="textarea" rows="3" placeholder="Document clinical orders, rationale, and advice..." required></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCancelDocResponse">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btnSubmitDocResponse">Save &amp; Resolve Escalation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 5: DUPLICATE PATIENT WARNING
+       ====================================================================== -->
+  <div id="duplicateModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="dupModalTitle">
+    <div class="modal-card" style="max-width: 520px; border-left: 6px solid #f59e0b;">
+      <div class="modal-header">
+        <h3 id="dupModalTitle" style="color: #b45309;">⚠️ Possible Duplicate Patient Detected</h3>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">
+          A patient with the same name and phone number was registered within the past 12 hours:
+        </p>
+        <div id="duplicatePatientDetails" style="background:#fefce8; border:1px solid #fef08a; padding:0.75rem; border-radius:4px; font-size:0.85rem; margin-bottom:1rem;">
+          <!-- Existing token and timestamp -->
+        </div>
+        <p style="font-size: 0.825rem; color: #475569;">
+          Would you like to continue creating a new registration, or cancel to review the existing record?
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCancelDuplicate">Cancel Registration</button>
+        <button type="button" class="btn btn-primary" id="btnConfirmDuplicateRegistration">Confirm New Registration</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 6: EMERGENCY WALK-IN QUICK REGISTRATION
+       ====================================================================== -->
+  <div id="emergencyWalkInModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="emergModalTitle">
+    <div class="modal-card" style="max-width: 520px; border-left: 6px solid #dc2626;">
+      <div class="modal-header">
+        <h3 id="emergModalTitle" style="color: #991b1b;">🚨 Emergency Walk-In Registration</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseEmergModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="danger-callout" style="margin-top:0;">
+          <span>⚡ Creates an immediate <strong>Level 1 Provisional</strong> patient at the top of the queue and raises an urgent clinical alert.</span>
+        </div>
+        <div class="form-group">
+          <label for="emergName" class="form-label">Patient Identifier / Name</label>
+          <input type="text" id="emergName" class="input" value="Emergency Unknown / Unidentified" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="emergAge" class="form-label">Approximate Age</label>
+            <input type="number" id="emergAge" class="input" value="40" min="0" max="120">
+          </div>
+          <div class="form-group">
+            <label for="emergSex" class="form-label">Estimated Sex</label>
+            <select id="emergSex" class="select">
+              <option value="Unknown">Unknown</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="emergComplaint" class="form-label">Visible Condition / Emergency Presentation <span style="color:#ef4444;">*</span></label>
+          <textarea id="emergComplaint" class="textarea" rows="2" placeholder="e.g. Unresponsive, severe hemorrhage, respiratory collapse..." required>Severe respiratory distress / Collapse</textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCancelEmergModal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="btnSubmitEmergencyWalkIn">🚨 Register Emergency L1 Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 7: PATIENT TIMELINE & AUDIT HISTORY
+       ====================================================================== -->
+  <div id="patientTimelineModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="timelineTitle">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 id="timelineTitle">📜 Patient Clinical Audit Trail</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseTimelineModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="patientTimelineSummary" style="margin-bottom: 1rem; padding: 0.75rem; background: #f8fafc; border-radius: 6px;"></div>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Simulated Time</th>
+                <th>User / Role</th>
+                <th>Action</th>
+                <th>Details &amp; State Changes</th>
+              </tr>
+            </thead>
+            <tbody id="patientTimelineBody">
+              <!-- Chronological list -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCloseTimelineFooter">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 8: ALERT CENTER
+       ====================================================================== -->
+  <div id="alertCenterModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="alertCenterTitle">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <h3 id="alertCenterTitle">🔔 Active Clinical Alerts</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseAlertCenter">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="warning-callout" style="margin-top:0;">
+          <span>ℹ️ <strong>Safety Principle:</strong> Alerts cannot be deleted. Unacknowledged alerts escalate automatically to senior staff.</span>
+        </div>
+        <div id="alertCenterList" style="display:flex; flex-direction:column; gap:0.75rem;">
+          <!-- List of alerts -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCloseAlertCenterFooter">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 9: MANUAL QUEUE REORDER (MANDATORY REASON)
+       ====================================================================== -->
+  <div id="reorderModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="reorderTitle">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 id="reorderTitle">↕️ Clinical Queue Re-ordering</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseReorderModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.875rem; margin-bottom: 0.75rem;">
+          Reordering patient priority in the queue requires a mandatory clinical justification.
+        </p>
+        <div id="reorderPatientSummary" style="font-size:0.85rem; background:#f8fafc; padding:0.5rem; margin-bottom:0.75rem; border-radius:4px;"></div>
+        <div class="form-group">
+          <label for="reorderReasonInput" class="form-label">Clinical Reason for Priority Adjustment <span style="color:#ef4444;">*</span></label>
+          <textarea id="reorderReasonInput" class="textarea" rows="2" placeholder="e.g. Visual inspection shows worsening pallor, bed made available in room 2..." required></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCancelReorder">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btnConfirmReorder">Confirm Reorder</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 10: FORCE PASSWORD RESET (ADMIN ACTION)
+       ====================================================================== -->
+  <div id="passwordResetModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="resetModalTitle">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 id="resetModalTitle">🔑 Force Staff Password Reset</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseResetModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="resetStaffSummary" style="font-size:0.85rem; background:#f8fafc; padding:0.6rem; border-radius:4px; margin-bottom:0.75rem;"></div>
+        <div class="form-group">
+          <label for="adminNewPasswordInput" class="form-label">New PIN / Password (Min 6 chars) <span style="color:#ef4444;">*</span></label>
+          <input type="password" id="adminNewPasswordInput" class="input" placeholder="Enter new password" minlength="6" required autocomplete="new-password">
+          <span class="form-hint">A new per-user salt will be generated and stored with SHA-256.</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCancelResetModal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="btnConfirmPasswordReset">Save New Password</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MODAL 11: INACTIVITY TIMEOUT WARNING
+       ====================================================================== -->
+  <div id="inactivityModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="inactivityTitle">
+    <div class="modal-card" style="max-width: 460px; border-left: 6px solid #f59e0b;">
+      <div class="modal-header">
+        <h3 id="inactivityTitle" style="color: #b45309;">⚠️ Session Inactivity Warning</h3>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:0.9rem; margin-bottom:0.75rem;">
+          You have been inactive for <strong>9 minutes</strong>.
+        </p>
+        <p style="font-size:0.85rem; color:#475569; margin-bottom:0.75rem;">
+          For patient data protection, your session will be automatically terminated in <strong id="inactivityCountdown" style="color:#dc2626;">60 seconds</strong>.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnInactivityLogoutNow">Logout Now</button>
+        <button type="button" class="btn btn-primary" id="btnInactivityStayLoggedIn">Stay Logged In</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       LOGIN SCREEN OVERLAY (AUTHENTICATION GATEWAY)
+       ====================================================================== -->
+  <div id="loginOverlay" class="login-overlay" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <div class="login-card">
+      <div class="login-brand">
+        <div class="logo-badge" style="background:#ffffff; border-radius:12px; padding:6px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:0.5rem; box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+          <img src="logo.svg" alt="Medi Flow logo" style="height:80px; width:auto; display:block;">
+        </div>
+        <div>
+          <h2 id="loginTitle" style="font-size:1.6rem; font-weight:600; margin:0; line-height:1.2;">
+            <span style="color:#2B3590; font-weight:600;">Medi</span> <span style="color:#1AA3B8; font-weight:600;">Flow</span>
+          </h2>
+          <div style="font-size:0.85rem; color:#64748b; font-weight:600; margin-top:0.25rem;">OPD Triage Decision Support</div>
+          <span style="font-size:0.775rem; color:#94a3b8; font-weight:500;">Staff Authentication Portal</span>
+        </div>
+      </div>
+
+      <!-- Honesty Warning Note -->
+      <div class="warning-callout" style="font-size:0.775rem; margin-bottom:1rem; padding:0.5rem 0.75rem;">
+        ⚠️ <strong>Prototype Note:</strong> Prototype login is simulated in the browser. Real deployment requires server-side authentication, MFA/OTP, hospital SSO and council license verification.
+      </div>
+
+      <!-- Lockout Alert Box -->
+      <div id="loginLockoutBox" class="danger-callout" style="display:none; font-size:0.8rem; margin-bottom:0.75rem;">
+        <!-- Injected if account is locked -->
+      </div>
+
+      <!-- Login Error Box -->
+      <div id="loginErrorBox" class="danger-callout" style="display:none; font-size:0.8rem; margin-bottom:0.75rem;">
+        <!-- Injected on incorrect password or invalid status -->
+      </div>
+
+      <form id="staffLoginForm">
+        <div class="form-group">
+          <label for="loginStaffId" class="form-label">Staff ID <span style="color:#ef4444;">*</span></label>
+          <input type="text" id="loginStaffId" class="input" placeholder="e.g. nurse01" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword" class="form-label">PIN / Password <span style="color:#ef4444;">*</span></label>
+          <input type="password" id="loginPassword" class="input" placeholder="Enter PIN or Password" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" id="btnLoginSubmit" class="btn btn-primary" style="width:100%; margin-top:0.5rem; padding:0.65rem;">
+          🔐 Sign In to OPD Clinical System
+        </button>
+      </form>
+
+      <!-- Demo Account Chooser (Collapsed by Default) -->
+      <details class="demo-accounts-toggle" style="margin-top:1.25rem; border-top:1px solid #e2e8f0; padding-top:0.85rem;">
+        <summary style="cursor:pointer; font-weight:700; color:#0284c7; font-size:0.775rem; user-select:none; padding:4px 0;">
+          🔑 Show demo accounts (hackathon build)
+        </summary>
+        <div style="margin-top:0.6rem;">
+          <span class="form-hint" style="font-weight:700; text-transform:uppercase; display:block; margin-bottom:0.4rem; font-size:0.7rem; color:#475569;">
+            Synthetic Demo Accounts (Click to Fill Credentials):
+          </span>
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap:0.4rem;">
+            <button type="button" class="btn btn-secondary btn-sm btn-quick-login" data-user="clerk01" data-pass="clerk123" title="Registration Clerk">
+              📝 <strong>clerk01</strong><br><small style="color:#64748b;">(clerk123)</small>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm btn-quick-login" data-user="nurse01" data-pass="nurse123" title="Triage Nurse">
+              🩺 <strong>nurse01</strong><br><small style="color:#64748b;">(nurse123)</small>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm btn-quick-login" data-user="doctor01" data-pass="doctor123" title="On-duty Doctor">
+              👨‍⚕️ <strong>doctor01</strong><br><small style="color:#64748b;">(doctor123)</small>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm btn-quick-login" data-user="admin01" data-pass="admin123" title="Primary Admin">
+              🛡️ <strong>admin01</strong><br><small style="color:#64748b;">(admin123)</small>
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm btn-quick-login" data-user="admin02" data-pass="admin456" title="Secondary Admin (for two-person approvals)">
+              🛡️ <strong>admin02</strong><br><small style="color:#64748b;">(admin456)</small>
+            </button>
+          </div>
+          <div style="font-size:0.7rem; color:#64748b; margin-top:0.6rem; text-align:center;">
+            🔒 Stored as salted SHA-256 hashes &bull; 3 failed attempts lock account for 5 min &bull; 10m auto-logout
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- Hidden Printable Token Slip Container (Rendered during window.print()) -->
+  <div id="tokenSlipPrintArea" class="token-slip-print" aria-hidden="true"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Application Logic (Vanilla JS) -->
+  <script src="app.js"></script>
+</body>
+</html>

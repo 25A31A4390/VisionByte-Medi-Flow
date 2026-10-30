@@ -1,0 +1,1001 @@
+visit_id,age,sex,complaint,spo2,sbp,hr,rr,temp,gcs,true_label,predicted_level,confidence_pct,recommended_dept,emergency_status
+PAT-00001,33,M,difficulty breathing,93,146,88,23,38.5,15,2,2,99.4,Pulmonology,EMERGENT
+PAT-00002,63,F,chest pressure,93,133,103,21,38.8,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00003,24,M,చిన్న దెబ్బ,98,121,76,14,37.0,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00004,6,M,chld fevr,100,146,86,18,38.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00005,28,F,allergic hives no breathing issue,97,118,86,15,36.9,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00006,4,F,baby warm not drinking milk,95,126,111,19,38.2,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00007,3,F,baby warm not drinking milk,96,142,108,19,38.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00008,49,M,itching skin rash,95,114,68,20,37.0,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00009,53,M,red patches on arms and back,100,131,68,19,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00010,34,M,त्वचा पर खुजली और चकत्ते,99,130,92,14,37.1,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00011,18,F,ear discharge and fullness,98,121,68,14,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00012,67,M,durada,96,127,80,19,36.6,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00013,37,F,difficulty swallowing with sore throat,100,124,76,19,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00014,22,M,wrist sprain,96,111,93,14,36.5,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00015,54,F,red patches on arms and back,96,135,80,20,36.6,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00016,61,M,nasal congestion,95,120,88,17,36.6,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00017,46,M,halki chot,95,110,82,19,37.1,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00018,28,F,ముక్కు కారడం,95,135,73,17,36.6,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00019,55,M,pet me tez dard,100,126,86,20,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00020,11,M,child crying with warm forehead,98,153,115,18,38.5,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00021,31,F,feever,96,129,97,20,38.3,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00022,22,M,minor finger cut,99,121,69,16,37.1,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00023,51,M,ear pain,100,119,82,20,37.2,15,4,4,100.0,ENT,ROUTINE
+PAT-00024,63,F,severe stomach pain,96,152,105,23,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00025,67,M,gasping for air,94,139,108,19,38.5,15,2,2,99.8,Pulmonology,EMERGENT
+PAT-00026,82,F,bolne me ladkhadahat,95,188,89,16,37.2,10,1,1,100.0,Neurology,CRITICAL
+PAT-00027,57,M,allergic hives no breathing issue,96,135,70,20,37.1,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00028,35,M,daggu,100,111,77,14,36.6,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00029,19,M,हल्की खांसी,98,112,73,16,36.7,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00030,29,F,severe wheezing,92,138,104,18,38.7,15,2,2,99.9,Pulmonology,EMERGENT
+PAT-00031,20,F,allergic hives no breathing issue,95,135,94,18,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00032,75,F,itching skin rash,99,123,86,16,36.7,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00033,10,F,baby warm not drinking milk,98,125,111,22,38.0,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00034,48,M,ere pain,100,126,74,14,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00035,33,F,కడుపులో తీవ్రమైన నొప్పి,99,127,109,24,38.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00036,2,F,child crying with warm forehead,96,155,110,19,37.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00037,56,F,कान में दर्द,98,133,91,18,37.1,15,4,4,100.0,ENT,ROUTINE
+PAT-00038,9,F,toddler fever and irritability,100,139,93,19,38.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00039,62,M,तेज बुखार,100,138,87,19,38.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00040,19,F,gontu noppi,98,121,95,14,37.0,15,4,4,100.0,ENT,ROUTINE
+PAT-00041,32,F,halki chot,98,122,65,17,36.9,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00042,55,M,red patches on arms and back,95,114,78,19,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00043,35,F,red patches on arms and back,97,125,67,20,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00044,33,M,minor finger cut,95,117,69,18,36.8,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00045,3,F,bby fever,95,154,85,22,38.5,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00046,33,M,कान में दर्द,100,131,74,20,37.0,15,4,4,100.0,ENT,ROUTINE
+PAT-00047,1,F,baby warm,98,155,98,18,38.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00048,35,F,ear pain,98,133,91,17,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00049,60,F,difficulty swallowing with sore throat,97,120,80,14,36.8,15,4,4,100.0,ENT,ROUTINE
+PAT-00050,53,M,daddurlu,99,117,67,15,36.8,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00051,32,F,अस्थमा का दौरा,93,143,106,20,38.3,15,2,2,98.7,Pulmonology,EMERGENT
+PAT-00052,34,M,red pacthes,95,120,71,19,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00053,55,F,ear discharge and fullness,95,119,71,20,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00054,36,M,शरीर पर लाल दाने,100,125,89,20,37.1,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00055,73,F,చీలమండ బెణకడం,95,122,67,20,36.5,15,5,4,71.4,Orthopedics,ROUTINE
+PAT-00056,33,M,nasal congestion,99,129,78,20,37.0,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00057,10,M,child crying with warm forehead,96,133,91,23,37.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00058,36,M,red patches on arms and back,96,119,87,16,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00059,35,M,kadupu noppi,95,150,90,18,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00060,35,F,తీవ్రమైన జ్వరం,98,126,104,18,38.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00061,55,M,allergic hives no breathing issue,100,128,73,20,37.0,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00062,70,F,ear pain,95,123,76,17,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00063,70,M,tez bukhar,98,133,95,18,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00064,57,F,fever with severe chills,100,126,109,21,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00065,69,M,itching skin rash,100,127,74,15,36.8,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00066,9,F,child crying with warm forehead,98,140,100,24,38.3,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00067,39,F,pyrexia,95,134,108,20,39.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00068,38,M,red patches on arms and back,100,122,83,15,37.1,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00069,27,F,gontu noppi,95,128,81,15,37.1,15,4,4,100.0,ENT,ROUTINE
+PAT-00070,44,M,chest pain,92,133,110,21,38.6,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00071,9,M,పాలు తాగడం లేదు ఏడుస్తున్నాడు,99,145,92,18,39.2,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00072,20,F,उंगली में हल्की चोट,95,121,76,16,36.5,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00073,57,M,त्वचा पर खुजली और चकत्ते,98,117,69,18,36.9,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00074,40,F,pyrexia,100,133,107,21,38.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00075,36,F,kaan me dard,95,122,86,20,36.4,15,4,4,100.0,ENT,ROUTINE
+PAT-00076,32,M,feever,99,149,106,20,38.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00077,27,F,एक तरफ कमजोरी,97,173,82,17,36.9,12,1,1,100.0,Neurology,CRITICAL
+PAT-00078,65,F,wrist sprain,95,112,95,17,37.0,15,5,4,71.4,Orthopedics,ROUTINE
+PAT-00079,52,M,tivramaina jwaram,98,148,106,20,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00080,38,M,ear pain,100,124,85,14,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00081,74,M,గుండెలో బరువుగా ఉంది,95,146,96,21,38.5,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00082,20,F,చిన్న దెబ్బ,96,117,79,17,36.5,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00083,72,F,acute abdominal pain,95,145,91,23,37.6,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00084,31,M,ere pain,97,135,69,20,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00085,26,M,angina,94,132,110,24,37.5,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00086,67,F,asthma attack,96,139,88,22,39.1,15,2,2,99.9,Pulmonology,EMERGENT
+PAT-00087,48,F,sneezing and throat irritation,98,125,68,19,36.5,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00088,63,F,ear discharge and fullness,98,119,81,18,36.8,15,4,4,100.0,ENT,ROUTINE
+PAT-00089,74,M,pyrexia,98,139,111,20,38.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00090,22,M,शरीर तप रहा है,95,128,98,18,38.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00091,73,F,तेज बुखार,100,134,115,18,38.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00092,41,F,garbhavastha me dard,92,143,93,24,38.9,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00093,39,F,చర్మంపై దురద మరియు దద్దుర్లు,95,114,92,15,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00094,28,F,rigors,97,149,95,23,39.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00095,56,F,allergic hives no breathing issue,98,134,71,16,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00096,56,M,swasa aadadam ledu,92,155,94,19,38.8,15,2,2,100.0,Pulmonology,EMERGENT
+PAT-00097,30,M,pas out,96,82,64,23,37.5,7,1,1,100.0,Emergency / Resuscitation,CRITICAL
+PAT-00098,25,F,skn rash,95,135,70,16,37.1,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00099,23,F,ear discharge and fullness,97,117,75,19,37.0,15,4,4,100.0,ENT,ROUTINE
+PAT-00100,40,M,twisted ankle,96,118,69,14,36.5,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00101,46,F,గొంతు నొప్పి మింగలేకపోవడం,100,124,69,16,36.8,15,4,4,100.0,ENT,ROUTINE
+PAT-00102,20,M,कपकपी के साथ बुखार,97,127,94,24,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00103,30,F,durada,99,114,81,17,36.8,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00104,46,F,pregnent bleeding,95,144,101,22,38.1,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00105,59,F,గర్భవతికి కడుపు నొప్పి,94,128,95,18,38.0,15,2,2,97.3,OB/GYN,EMERGENT
+PAT-00106,37,F,fever with severe chills,96,155,107,22,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00107,41,M,कान में दर्द,97,116,70,16,37.2,15,4,4,100.0,ENT,ROUTINE
+PAT-00108,50,M,sneezing and throat irritation,100,134,93,16,36.9,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00109,8,F,pilladiki jwaram,100,132,99,24,38.0,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00110,47,F,khujli aur chakte,98,123,81,18,37.1,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00111,24,M,शरीर पर लाल दाने,97,115,89,14,36.8,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00112,44,M,mild runny nose,98,117,76,18,37.2,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00113,26,M,उंगली में हल्की चोट,97,132,80,20,37.0,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00114,57,M,asthma attack,82,107,129,31,36.9,15,1,1,100.0,Pulmonology,CRITICAL
+PAT-00115,33,M,ear discharge and fullness,97,129,65,17,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00116,52,F,गर्भवती महिला को रक्तस्राव,96,142,101,24,38.2,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00117,40,M,sharp belly pain,100,128,105,23,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00118,69,M,minor finger cut,95,124,89,19,36.6,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00119,48,F,chevi noppi,95,116,85,20,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00120,65,F,tivramaina jwaram,98,140,90,20,38.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00121,52,F,చేతి వేలికి చిన్న గాయం,97,120,67,14,36.6,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00122,57,F,శ్వాస ఆడటం లేదు,94,155,110,23,37.6,15,2,2,99.8,Pulmonology,EMERGENT
+PAT-00123,1,M,chld fevr,95,145,109,19,38.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00124,54,M,acute abdominal pain,99,135,97,20,37.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00125,67,F,skn rash,100,129,71,17,37.0,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00126,46,M,गले में खराश और निगलने में दर्द,100,131,75,20,37.0,15,4,4,100.0,ENT,ROUTINE
+PAT-00127,29,F,शरीर पर लाल दाने,99,116,68,15,36.6,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00128,26,M,daddurlu,95,132,77,16,36.8,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00129,47,F,allergic hives no breathing issue,96,127,89,20,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00130,38,M,కడుపు పట్టేయడం,97,134,113,22,37.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00131,50,M,पैर मुड़ना,99,115,69,18,37.1,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00132,59,M,ఎర్రటి మచ్చలు,99,130,84,17,36.8,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00133,37,F,हल्की खरोंच,95,115,66,19,36.7,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00134,43,M,pyrexia,97,128,102,22,37.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00135,73,F,తీవ్రమైన జ్వరం,96,130,113,24,39.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00136,49,M,itching skin rash,95,124,81,17,36.6,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00137,48,F,red patches on arms and back,99,113,92,14,36.5,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00138,30,F,garbhavatiki noppi,94,127,94,22,38.4,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00139,53,F,burning hot,96,141,104,19,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00140,6,F,शिशु रो रहा है और शरीर गर्म है,96,148,104,21,38.5,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00141,7,F,baby warm not drinking milk,100,145,107,24,38.5,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00142,7,M,toddler fever and irritability,100,143,86,19,37.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00143,1,M,child crying with warm forehead,99,135,102,19,38.4,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00144,10,F,bby fever,96,142,93,19,37.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00145,40,F,red patches on arms and back,97,131,83,14,37.1,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00146,40,F,हल्की खांसी,100,125,88,16,36.6,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00147,33,M,wrist sprain,100,130,72,18,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00148,48,F,విపరీతమైన రక్తస్రావం,93,81,145,28,35.9,11,1,1,100.0,Surgery,CRITICAL
+PAT-00149,20,F,extreme cramps,98,148,114,19,39.0,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00150,51,F,itching skin rash,96,124,81,20,36.6,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00151,68,F,దమ్ము,96,131,109,23,38.5,15,2,2,99.8,Pulmonology,EMERGENT
+PAT-00152,29,M,sharp belly pain,98,132,114,20,37.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00153,59,F,allergic hives no breathing issue,100,131,66,15,36.8,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00154,41,M,ఎర్రటి మచ్చలు,96,114,80,15,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00155,66,M,जुकाम और छींकें,100,135,84,20,36.8,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00156,30,M,allergic hives no breathing issue,96,126,92,16,36.5,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00157,47,M,కడుపు నొప్పి,99,143,99,21,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00158,55,M,chest pain,92,147,96,21,38.4,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00159,67,F,కడుపు పట్టేయడం,97,152,99,21,38.1,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00160,52,F,abdminal pain,99,132,108,19,38.8,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00161,47,F,ముక్కు కారడం,96,133,71,16,36.4,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00162,46,M,heavy chest,93,137,86,23,37.9,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00163,6,F,baby warm not drinking milk,96,129,113,20,38.2,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00164,59,F,asthma attack,96,138,107,20,37.8,15,2,2,99.8,Pulmonology,EMERGENT
+PAT-00165,8,M,toddler fever and irritability,99,138,115,21,38.2,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00166,71,F,third trimester abdominal cramping,93,137,93,18,39.0,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00167,37,M,halki chot,96,133,95,15,37.0,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00168,42,F,durada,99,119,76,19,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00169,41,F,extreme cramps,98,152,103,18,38.8,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00170,54,M,jwaram chali,98,155,105,22,37.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00171,64,F,pet me tez dard,96,155,105,22,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00172,22,M,ముక్కు కారడం,95,124,81,15,36.4,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00173,80,M,khoon ki ulti,94,72,143,32,36.8,14,1,1,100.0,Surgery,CRITICAL
+PAT-00174,5,F,बच्चे को बुखार,97,127,97,24,39.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00175,72,M,itching skin rash,95,122,77,17,36.4,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00176,54,M,red pacthes,99,116,72,14,36.6,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00177,19,M,severe wheezing,96,151,109,19,39.1,15,2,2,99.9,Pulmonology,EMERGENT
+PAT-00178,7,M,child crying with warm forehead,100,141,87,23,37.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00179,67,F,wrist sprain,95,135,73,19,36.8,15,5,4,71.4,Orthopedics,ROUTINE
+PAT-00180,67,F,చిన్న దెబ్బ,96,112,67,19,36.5,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00181,37,F,substernal pain,94,128,93,24,37.6,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00182,53,M,asthma attack,96,135,110,22,37.5,15,2,2,99.8,Pulmonology,EMERGENT
+PAT-00183,51,M,त्वचा पर खुजली और चकत्ते,100,114,70,17,36.6,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00184,41,F,severe stomach pain,96,140,105,23,38.3,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00185,46,F,ఒళ్ళు కాలిపోతోంది,98,152,111,24,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00186,36,F,benakadam,99,120,72,20,36.6,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00187,61,M,mild runny nose,100,132,95,17,36.8,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00188,60,M,शरीर तप रहा है,100,137,110,21,38.3,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00189,44,M,allergic hives no breathing issue,97,135,93,19,36.5,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00190,61,F,pregnant with pelvic pain,95,155,95,24,37.7,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00191,46,F,twisted ankle,98,131,89,17,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00192,27,F,pregnant with pelvic pain,94,139,95,20,38.4,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00193,1,F,పిల్లాడికి జ్వరం,100,150,106,18,39.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00194,32,F,తీవ్రమైన జ్వరం,100,145,90,19,38.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00195,31,F,chest pain,92,150,88,22,38.1,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00196,42,F,chevi noppi,99,121,76,14,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00197,29,F,असहनीय पेट दर्द,100,137,101,19,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00198,29,M,గొంతు నొప్పి మింగలేకపోవడం,98,115,69,16,37.1,15,4,4,100.0,ENT,ROUTINE
+PAT-00199,50,F,itching skin rash,98,123,80,19,36.8,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00200,79,F,severe wheezing,87,135,141,39,36.7,12,1,1,100.0,Pulmonology,CRITICAL
+PAT-00201,46,F,pregnent bleeding,96,128,98,19,38.0,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00202,67,M,గుండెలో బరువుగా ఉంది,93,143,108,24,39.0,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00203,69,M,కడుపు నొప్పి,99,133,102,20,38.1,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00204,26,F,minor finger cut,95,130,92,16,37.0,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00205,27,F,khujli aur chakte,100,124,77,17,36.9,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00206,47,F,शरीर पर लाल दाने,97,134,65,18,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00207,49,F,जुकाम और छींकें,97,120,74,20,36.9,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00208,19,M,చర్మంపై దురద మరియు దద్దుర్లు,96,110,79,17,36.6,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00209,59,F,ముక్కు కారడం,97,131,76,14,36.4,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00210,31,F,చీలమండ బెణకడం,95,117,83,15,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00211,64,M,pet me tez dard,95,153,96,20,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00212,28,F,గర్భధారణ సమయంలో రక్తస్రావం,95,131,108,20,39.1,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00213,55,F,కడుపులో తీవ్రమైన నొప్పి,97,150,95,21,37.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00214,19,F,ear pain,96,126,84,18,37.0,15,4,4,100.0,ENT,ROUTINE
+PAT-00215,2,M,పాలు తాగడం లేదు ఏడుస్తున్నాడు,97,137,89,20,38.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00216,20,M,heart attack pain,95,145,94,22,38.2,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00217,23,M,burning hot,96,137,95,22,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00218,57,M,ఒళ్ళు కాలిపోతోంది,97,146,108,23,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00219,3,F,child crying with warm forehead,96,152,109,23,38.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00220,54,F,garbhavastha me dard,92,141,99,21,37.6,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00221,61,F,garbhavastha me dard,92,141,108,19,37.6,15,2,2,99.8,OB/GYN,EMERGENT
+PAT-00222,72,M,slight dry cough,99,132,94,20,36.6,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00223,75,F,pregnancy with mild spotting,92,150,92,19,39.1,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00224,41,M,हल्की खरोंच,97,119,90,18,36.8,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00225,44,M,rigid abdomen,96,145,96,22,39.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00226,49,M,chinna debba,96,112,73,19,37.1,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00227,50,M,chest pane,95,143,103,18,38.2,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00228,62,F,toe injury while walking,97,117,73,17,37.2,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00229,44,M,तेज बुखार,99,149,115,20,38.3,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00230,1,M,child crying with warm forehead,97,147,87,19,39.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00231,72,F,kampkampi bukhar,99,132,102,23,38.3,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00232,26,M,twisted ankle,98,130,86,16,36.9,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00233,23,F,उंगली में हल्की चोट,95,124,95,14,36.5,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00234,56,M,severe confusion,92,74,112,20,38.1,8,1,1,100.0,Emergency / Resuscitation,CRITICAL
+PAT-00235,35,F,pair mudna,96,130,71,17,36.9,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00236,54,F,red patches on arms and back,98,110,70,16,36.9,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00237,28,M,miner cut,96,118,72,19,37.0,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00238,29,M,slight dry cough,99,133,90,16,37.1,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00239,52,F,toe injury while walking,96,112,66,17,36.6,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00240,39,M,benakadam,97,114,65,14,37.0,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00241,24,F,soar throte,97,115,69,16,37.0,15,4,4,100.0,ENT,ROUTINE
+PAT-00242,32,M,చిన్న దెబ్బ,98,132,88,16,36.5,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00243,65,M,heavy bleeding,97,74,146,26,36.2,13,1,1,100.0,Surgery,CRITICAL
+PAT-00244,26,F,disnea,79,103,110,39,37.2,15,1,1,99.9,Pulmonology,CRITICAL
+PAT-00245,68,M,high fever,96,150,87,21,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00246,9,M,baby warm not drinking milk,97,153,104,22,38.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00247,39,M,severe stomach pain,96,142,107,21,38.6,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00248,21,F,sneezing and throat irritation,95,119,67,17,36.6,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00249,48,F,swasa aadadam ledu,94,142,105,18,37.8,15,2,2,99.8,Pulmonology,EMERGENT
+PAT-00250,32,F,rigors,99,149,89,18,37.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00251,70,F,breathlessness,96,154,112,23,38.5,15,2,2,99.8,Pulmonology,EMERGENT
+PAT-00252,54,M,gale me kharash,95,115,79,20,37.2,15,4,4,100.0,ENT,ROUTINE
+PAT-00253,70,M,उंगली में हल्की चोट,99,133,75,16,36.5,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00254,68,F,हल्की सर्दी,95,114,69,17,37.1,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00255,42,F,toe injury while walking,99,111,80,18,36.6,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00256,33,M,durada,100,118,94,17,36.4,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00257,24,M,allergic hives no breathing issue,96,124,88,16,36.6,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00258,65,F,చేతి వేలికి చిన్న గాయం,99,111,76,20,36.5,15,5,4,71.4,Orthopedics,ROUTINE
+PAT-00259,74,M,ఛాతీలో మంట,92,139,86,19,39.1,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00260,61,M,benakadam,96,129,80,16,36.5,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00261,5,M,పిల్లాడికి జ్వరం,98,152,90,18,39.0,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00262,18,F,ఎర్రటి మచ్చలు,96,129,70,19,36.6,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00263,34,M,small bruise,98,126,86,16,36.9,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00264,48,M,కడుపు పట్టేయడం,97,135,105,20,37.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00265,69,F,twised ankel,100,114,86,16,36.9,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00266,54,F,గర్భధారణ సమయంలో రక్తస్రావం,93,147,108,20,38.7,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00267,3,F,बच्चे को बुखार,95,148,89,21,38.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00268,44,F,शरीर तप रहा है,97,134,103,20,38.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00269,42,F,ear discharge and fullness,98,114,92,14,37.2,15,4,4,100.0,ENT,ROUTINE
+PAT-00270,49,F,minor finger cut,100,130,75,15,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00271,57,F,minor finger cut,100,123,77,17,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00272,30,M,chevi noppi,100,133,85,14,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00273,22,M,చీలమండ బెణకడం,97,133,79,16,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00274,19,M,fever with severe chills,96,131,89,23,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00275,1,M,toddler fever and irritability,100,151,105,18,37.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00276,31,M,చేతి వేలికి చిన్న గాయం,97,113,86,17,36.9,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00277,68,M,chect pain,95,131,104,19,38.9,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00278,62,F,chinna debba,97,110,65,15,37.1,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00279,24,F,pregnant with pelvic pain,94,139,92,23,37.9,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00280,65,M,చర్మంపై దురద మరియు దద్దుర్లు,95,111,89,20,37.1,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00281,74,M,twised ankel,97,115,75,20,36.7,15,5,4,71.4,Orthopedics,ROUTINE
+PAT-00282,25,M,उंगली में हल्की चोट,100,115,66,19,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00283,19,M,difficulty swallowing with sore throat,98,123,68,17,36.4,15,4,4,100.0,ENT,ROUTINE
+PAT-00284,32,F,గొంతు నొప్పి మింగలేకపోవడం,99,132,87,18,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00285,21,M,red patches on arms and back,100,125,81,15,37.1,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00286,9,F,बच्चे को बुखार,98,127,92,24,38.3,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00287,59,M,daddurlu,95,111,78,17,37.1,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00288,39,F,ఎర్రటి మచ్చలు,95,124,72,20,36.8,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00289,18,F,twisted ankle,97,135,85,20,36.8,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00290,64,F,khujli aur chakte,95,116,84,16,36.5,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00291,20,M,gasping for air,95,143,106,21,39.1,15,2,2,99.9,Pulmonology,EMERGENT
+PAT-00292,50,M,చిన్న దెబ్బ,100,133,70,18,36.5,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00293,5,F,పాలు తాగడం లేదు ఏడుస్తున్నాడు,97,150,99,20,37.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00294,31,M,allergic hives no breathing issue,96,119,87,18,37.1,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00295,25,F,chevi noppi,99,128,83,17,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00296,21,M,గుండె నొప్పి,93,150,109,20,39.2,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00297,70,F,त्वचा पर खुजली और चकत्ते,95,131,92,18,37.0,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00298,42,F,aayasam,94,125,86,22,37.8,15,2,2,99.7,Pulmonology,EMERGENT
+PAT-00299,30,M,ear discharge and fullness,97,131,70,17,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00300,26,M,feever,99,125,93,24,38.3,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00301,57,F,చెవి నొప్పి,98,127,83,20,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00302,52,F,allergic hives no breathing issue,95,116,72,16,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00303,18,M,ఎర్రటి మచ్చలు,100,117,79,16,37.2,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00304,19,F,khujli aur chakte,99,124,81,20,36.4,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00305,52,F,pregnant with pelvic pain,92,131,87,23,39.0,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00306,67,F,చర్మంపై దురద మరియు దద్దుర్లు,100,112,95,20,36.4,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00307,22,M,ear discharge and fullness,97,124,77,17,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00308,49,M,vomiting blood,95,81,131,32,36.6,11,1,1,100.0,Surgery,CRITICAL
+PAT-00309,52,M,heart attack pain,93,150,97,23,39.1,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00310,20,M,చిన్న దెబ్బ,99,127,77,18,36.6,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00311,27,M,చెవి నొప్పి,96,118,84,15,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00312,22,F,third trimester abdominal cramping,94,148,91,18,39.1,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00313,38,F,substernal pain,95,146,104,20,38.7,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00314,33,M,fever with severe chills,100,138,105,23,38.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00315,53,M,allergic hives no breathing issue,96,112,84,19,37.1,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00316,22,M,ear pain,99,128,65,19,37.0,15,4,4,100.0,ENT,ROUTINE
+PAT-00317,59,M,पैर मुड़ना,97,134,72,17,36.5,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00318,61,M,कान में दर्द,99,115,79,15,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00319,22,F,chinna debba,97,131,66,15,36.8,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00320,38,F,third trimester abdominal cramping,92,141,115,23,38.9,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00321,9,F,toddler fever and irritability,98,137,101,19,38.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00322,22,F,tivramaina kadupu noppi,96,130,90,19,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00323,61,F,allergic hives no breathing issue,98,115,83,15,36.4,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00324,27,F,third trimester abdominal cramping,92,154,93,19,38.4,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00325,8,M,bacche ko bukhar,96,144,98,24,38.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00326,56,M,शरीर पर लाल दाने,96,114,77,17,36.4,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00327,56,M,ear discharge and fullness,99,113,89,18,36.8,15,4,4,100.0,ENT,ROUTINE
+PAT-00328,45,F,gontu noppi,97,132,66,20,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00329,54,M,allergic hives no breathing issue,98,125,73,15,37.1,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00330,68,F,pregnancy with mild spotting,92,128,101,22,38.1,15,2,2,99.8,OB/GYN,EMERGENT
+PAT-00331,5,F,baby warm not drinking milk,99,133,104,20,38.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00332,37,F,allergic hives no breathing issue,100,114,88,17,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00333,69,M,jwaram chali,96,145,115,21,38.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00334,56,M,पेट में तेज दर्द,100,137,114,21,38.7,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00335,63,M,arterial bleeding,92,83,127,34,36.6,12,1,1,100.0,Surgery,CRITICAL
+PAT-00336,51,M,కడుపు పట్టేయడం,100,154,87,23,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00337,8,F,शिशु रो रहा है और शरीर गर्म है,99,130,93,18,38.4,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00338,70,F,durada,100,122,95,17,37.0,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00339,22,F,red patches on arms and back,100,131,72,20,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00340,60,F,ek taraf kamjori,96,176,105,16,36.7,11,1,1,100.0,Neurology,CRITICAL
+PAT-00341,5,M,child crying with warm forehead,96,132,111,19,37.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00342,52,F,hematemesis,97,87,142,33,37.0,13,1,1,100.0,Surgery,CRITICAL
+PAT-00343,9,F,baby warm not drinking milk,98,149,106,24,38.3,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00344,42,M,chest tightness,94,152,104,20,37.8,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00345,31,F,burning hot,100,136,96,24,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00346,45,F,red patches on arms and back,96,133,90,15,36.8,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00347,52,F,చర్మంపై దురద మరియు దద్దుర్లు,98,127,73,16,36.7,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00348,65,F,red patches on arms and back,97,127,76,16,36.7,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00349,67,F,twisted ankle,97,126,86,16,37.0,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00350,73,M,पैर मुड़ना,100,120,94,20,36.9,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00351,5,F,शिशु रो रहा है और शरीर गर्म है,97,152,109,21,38.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00352,33,F,pregnant with pelvic pain,94,148,107,23,37.9,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00353,51,M,swasa aadadam ledu,92,129,104,20,38.6,15,2,2,99.9,Pulmonology,EMERGENT
+PAT-00354,26,M,पेट में मरोड़,95,136,106,18,39.0,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00355,52,M,ఎర్రటి మచ్చలు,99,130,79,18,36.8,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00356,37,F,halki chot,98,119,69,16,36.4,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00357,66,F,swasa kastam,94,138,109,18,38.5,15,2,2,99.8,Pulmonology,EMERGENT
+PAT-00358,33,M,allergic hives no breathing issue,100,122,85,19,36.6,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00359,61,F,khujli aur chakte,97,127,88,19,36.7,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00360,35,F,itching skin rash,96,114,65,16,37.2,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00361,32,M,kadupu noppi,96,131,100,18,38.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00362,71,M,heavy chest,92,137,109,20,38.4,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00363,7,F,baby warm not drinking milk,96,131,86,23,38.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00364,28,M,small bruise,100,113,81,18,36.8,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00365,38,M,high fever,96,143,93,24,38.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00366,28,F,చిన్న దెబ్బ,95,120,84,19,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00367,8,M,baby warm not drinking milk,95,136,97,23,37.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00368,54,M,halki chot,99,133,75,16,36.6,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00369,52,F,tivramaina jwaram,98,145,109,18,38.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00370,70,F,ear discharge and fullness,96,125,86,18,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00371,71,M,toe injury while walking,96,116,66,20,36.8,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00372,21,F,red patches on arms and back,96,112,87,18,37.1,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00373,65,F,pregnant with pelvic pain,95,150,96,24,38.9,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00374,2,M,bby fever,99,131,91,21,38.5,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00375,45,M,గొంతు నొప్పి మింగలేకపోవడం,96,127,70,20,36.8,15,4,4,100.0,ENT,ROUTINE
+PAT-00376,44,F,उंगली में हल्की चोट,100,117,84,16,36.7,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00377,18,M,fever with severe chills,97,141,85,22,39.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00378,70,F,गर्भावस्था में पेट दर्द,94,142,101,22,37.7,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00379,34,F,చేతి వేలికి చిన్న గాయం,95,128,77,18,37.0,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00380,70,M,difficulty swallowing with sore throat,99,111,74,19,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00381,65,M,sneezing and throat irritation,100,122,85,20,36.6,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00382,8,M,toddler fever and irritability,96,150,94,21,37.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00383,45,F,గర్భవతికి కడుపు నొప్పి,93,140,89,24,38.3,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00384,22,F,small bruise,98,128,86,16,36.5,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00385,67,F,minor finger cut,96,135,84,16,36.9,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00386,25,M,చీలమండ బెణకడం,96,114,94,18,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00387,4,M,chld fevr,99,133,109,22,38.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00388,28,M,చర్మంపై దురద మరియు దద్దుర్లు,97,132,90,15,36.4,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00389,41,M,ear discharge and fullness,95,130,92,16,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00390,29,M,twised ankel,99,132,82,17,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00391,61,F,వణుకుతో కూడిన జ్వరం,97,132,94,23,38.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00392,75,F,ఒళ్ళు కాలిపోతోంది,100,148,87,19,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00393,56,F,తీవ్రమైన జ్వరం,98,131,89,22,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00394,45,M,हल्की खांसी,100,115,94,18,36.5,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00395,19,F,itching skin rash,98,124,74,17,36.5,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00396,56,M,ఎర్రటి మచ్చలు,99,131,72,15,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00397,41,M,ear pain,98,114,80,17,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00398,66,M,halki chot,95,124,94,15,37.0,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00399,64,F,त्वचा पर खुजली और चकत्ते,98,133,95,18,36.8,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00400,53,F,slight dry cough,99,111,85,20,36.6,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00401,62,M,extreme cramps,98,139,105,24,38.7,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00402,29,F,acute abdominal pain,99,131,113,23,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00403,23,F,burning hot,100,144,101,24,38.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00404,73,M,దగ్గు,96,111,87,20,36.6,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00405,18,F,rigid abdomen,95,152,100,21,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00406,46,M,त्वचा पर खुजली और चकत्ते,99,117,65,18,36.9,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00407,27,M,twisted ankle,100,129,91,18,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00408,10,M,toddler fever and irritability,98,136,103,23,37.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00409,36,F,हल्की खांसी,96,118,87,14,36.8,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00410,51,M,chevi noppi,98,129,87,19,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00411,57,F,pet me tez dard,99,140,105,23,38.9,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00412,74,M,seene me dard,97,142,111,24,36.8,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00413,37,F,rigid abdomen,99,149,95,22,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00414,48,F,daddurlu,95,125,69,19,36.9,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00415,9,F,పాలు తాగడం లేదు ఏడుస్తున్నాడు,99,135,106,23,37.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00416,58,M,swasa aadadam ledu,96,130,97,22,39.0,15,2,2,99.9,Pulmonology,EMERGENT
+PAT-00417,41,F,halki chot,97,119,81,15,36.5,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00418,27,M,ear pain,97,126,88,17,37.0,15,4,4,100.0,ENT,ROUTINE
+PAT-00419,63,M,saas lene me takleef,92,126,114,20,38.1,15,2,2,98.7,Pulmonology,EMERGENT
+PAT-00420,35,M,slurred speech,95,199,87,18,37.0,15,1,1,100.0,Neurology,CRITICAL
+PAT-00421,50,M,itchy rash,96,127,76,18,36.6,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00422,52,F,red patches on arms and back,95,125,65,15,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00423,71,F,చర్మంపై దురద మరియు దద్దుర్లు,99,120,74,16,37.0,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00424,47,M,skn rash,98,130,86,16,36.8,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00425,39,F,कान में दर्द,98,112,65,17,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00426,43,M,rigid abdomen,97,127,105,22,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00427,42,M,fever with severe chills,97,147,111,19,38.8,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00428,63,F,gale me kharash,95,124,84,18,36.8,15,4,4,100.0,ENT,ROUTINE
+PAT-00429,67,F,garbhavastha me dard,95,145,100,20,37.7,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00430,8,M,bby fever,96,135,113,23,38.5,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00431,50,F,ere pain,96,111,74,20,37.1,15,4,4,100.0,ENT,ROUTINE
+PAT-00432,33,F,rigid abdomen,100,145,97,22,38.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00433,53,F,చీలమండ బెణకడం,97,114,78,20,37.2,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00434,60,F,jwaram chali,96,145,89,18,39.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00435,42,F,khujli aur chakte,96,129,78,15,36.9,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00436,20,M,skn rash,99,121,87,17,36.9,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00437,47,M,చిన్న దెబ్బ,99,117,67,18,36.9,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00438,75,F,पेट में मरोड़,99,140,85,24,38.4,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00439,36,M,पैर मुड़ना,95,129,94,19,37.0,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00440,69,M,shortness of breath,94,129,87,21,38.9,15,2,2,99.9,Pulmonology,EMERGENT
+PAT-00441,56,M,heavy chest,96,146,89,23,38.1,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00442,39,M,wrist sprain,96,114,94,18,37.0,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00443,1,F,बच्चे को बुखार,95,139,90,18,38.3,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00444,18,F,कपकपी के साथ बुखार,98,135,106,21,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00445,35,F,చీలమండ బెణకడం,95,128,85,16,36.8,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00446,38,M,उंगली में हल्की चोट,100,112,91,14,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00447,20,M,కడుపు పట్టేయడం,99,155,86,18,39.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00448,3,M,toddler fever and irritability,100,134,93,19,38.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00449,34,M,itchy rash,95,111,89,16,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00450,57,F,toe injury while walking,96,113,80,19,36.8,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00451,22,F,chest pain,95,140,113,18,38.6,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00452,54,M,high fever,99,149,115,23,38.3,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00453,58,F,spruha tappipovadam,92,90,62,24,36.3,8,1,1,100.0,Emergency / Resuscitation,CRITICAL
+PAT-00454,29,M,కడుపు నొప్పి,98,134,91,23,39.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00455,26,M,extreme cramps,96,143,108,18,38.3,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00456,19,M,toe injury while walking,97,135,75,14,36.7,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00457,20,M,చీలమండ బెణకడం,98,125,65,19,36.6,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00458,47,M,chhike,99,113,91,14,36.8,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00459,61,F,skn rash,97,128,86,14,36.7,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00460,27,F,brething difficulty,93,142,96,23,38.2,15,2,2,99.4,Pulmonology,EMERGENT
+PAT-00461,67,M,allergic hives no breathing issue,95,110,67,17,36.5,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00462,62,M,red pacthes,96,118,85,15,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00463,58,F,sprained ankel,97,127,65,17,36.6,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00464,60,M,soar throte,97,113,71,14,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00465,59,F,daggu,97,118,78,15,36.9,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00466,28,M,जुकाम और छींकें,98,112,68,18,37.0,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00467,67,M,sneezing and throat irritation,97,117,68,15,37.1,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00468,27,M,శ్వాస ఆడటం లేదు,96,137,90,21,37.7,15,2,2,99.7,Pulmonology,EMERGENT
+PAT-00469,21,F,pregnancy with mild spotting,94,152,88,19,38.3,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00470,57,M,कान में दर्द,99,117,92,18,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00471,73,M,कान में दर्द,96,128,78,16,37.1,15,4,4,100.0,ENT,ROUTINE
+PAT-00472,64,M,severe wheezing,95,140,97,22,38.3,15,2,2,99.7,Pulmonology,EMERGENT
+PAT-00473,33,M,tez bukhar,95,134,106,21,38.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00474,29,F,small bruise,100,130,87,17,37.1,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00475,57,M,soar throte,100,120,84,14,36.8,15,4,4,100.0,ENT,ROUTINE
+PAT-00476,41,F,halki chot,96,132,82,19,36.8,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00477,66,M,गले में खराश और निगलने में दर्द,100,120,72,20,37.1,15,4,4,100.0,ENT,ROUTINE
+PAT-00478,50,M,high fever,98,146,102,23,38.3,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00479,36,M,tivramaina kadupu noppi,95,128,93,19,38.3,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00480,48,F,minor finger cut,98,130,88,17,36.6,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00481,8,F,toddler fever and irritability,98,129,103,20,37.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00482,36,F,gasping for air,93,130,114,22,37.8,15,2,2,98.7,Pulmonology,EMERGENT
+PAT-00483,54,M,breathlessness,95,130,96,20,38.5,15,2,2,99.7,Pulmonology,EMERGENT
+PAT-00484,52,F,sprained ankel,95,125,77,14,37.2,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00485,8,F,toddler fever and irritability,99,150,89,23,38.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00486,43,M,substernal pain,95,135,87,20,38.5,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00487,61,M,सांस लेने में तकलीफ,96,140,91,21,38.5,15,2,2,99.7,Pulmonology,EMERGENT
+PAT-00488,42,F,pair mudna,95,121,76,16,37.2,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00489,36,M,तेज बुखार,100,153,108,21,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00490,39,M,itchy rash,99,112,77,20,36.7,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00491,30,M,toe injury while walking,98,125,82,16,37.1,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00492,68,M,చేతి వేలికి చిన్న గాయం,96,130,74,16,36.5,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00493,19,M,हल्की खरोंच,97,129,67,17,36.9,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00494,72,F,చేతి వేలికి చిన్న గాయం,96,114,66,18,36.8,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00495,21,F,kampkampi bukhar,97,154,105,22,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00496,70,F,त्वचा पर खुजली और चकत्ते,97,132,87,19,36.5,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00497,44,F,tez bukhar,96,129,91,18,38.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00498,19,F,gunde noppi,94,136,107,20,38.9,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00499,4,M,child crying with warm forehead,100,132,107,19,37.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00500,20,M,skn rash,95,131,90,14,36.8,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00501,56,M,small bruise,99,131,70,15,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00502,57,M,గొంతు నొప్పి మింగలేకపోవడం,99,113,67,18,36.8,15,4,4,100.0,ENT,ROUTINE
+PAT-00503,54,F,chathi lo noppi,96,183,113,20,36.6,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00504,25,F,तेज बुखार,95,140,89,22,38.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00505,56,F,kampkampi bukhar,100,132,99,24,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00506,61,F,extreme cramps,100,139,97,18,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00507,30,F,చిన్న దెబ్బ,95,123,91,15,36.6,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00508,49,F,त्वचा पर खुजली और चकत्ते,96,113,79,20,36.6,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00509,61,M,చీలమండ బెణకడం,96,131,84,17,36.5,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00510,36,F,पैर मुड़ना,98,127,73,18,37.0,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00511,38,F,swasa aadadam ledu,95,126,86,21,38.4,15,2,2,99.7,Pulmonology,EMERGENT
+PAT-00512,49,M,tez bukhar,99,146,100,23,38.3,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00513,61,F,allergic hives no breathing issue,97,110,66,16,36.5,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00514,44,F,शरीर तप रहा है,95,132,92,23,38.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00515,1,F,పిల్లాడికి జ్వరం,100,143,98,24,38.0,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00516,69,F,tivramaina kadupu noppi,95,131,106,23,38.3,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00517,30,F,rigors,100,127,110,24,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00518,72,M,itching skin rash,99,112,73,16,36.7,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00519,4,F,बच्चे को बुखार,98,141,104,20,38.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00520,5,F,child crying with warm forehead,99,126,105,23,38.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00521,58,M,దగ్గు,98,119,91,16,36.6,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00522,47,F,difficulty breathing,96,145,98,21,37.8,15,2,2,99.7,Pulmonology,EMERGENT
+PAT-00523,64,F,severe stomach pain,95,153,112,18,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00524,71,M,benakadam,96,133,83,14,36.8,15,5,4,71.4,Orthopedics,ROUTINE
+PAT-00525,39,F,burning hot,100,154,92,23,37.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00526,49,F,slight dry cough,100,127,75,14,36.8,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00527,19,M,kampkampi bukhar,100,155,110,23,38.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00528,41,M,soar throte,99,124,72,20,36.4,15,4,4,100.0,ENT,ROUTINE
+PAT-00529,31,M,itching skin rash,98,135,75,19,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00530,63,F,toe injury while walking,95,132,70,20,36.8,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00531,59,M,ఛాతీలో మంట,95,129,105,24,38.2,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00532,66,M,gale me kharash,99,135,78,19,36.8,15,4,4,100.0,ENT,ROUTINE
+PAT-00533,30,M,halki chot,98,122,70,16,37.2,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00534,32,M,గొంతు నొప్పి మింగలేకపోవడం,98,132,73,15,36.4,15,4,4,100.0,ENT,ROUTINE
+PAT-00535,1,F,toddler fever and irritability,98,140,106,24,37.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00536,56,M,pet me tez dard,97,131,106,23,37.8,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00537,41,F,minor finger cut,95,114,80,14,37.2,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00538,53,M,belly ache severe,95,132,114,20,39.0,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00539,43,F,शरीर पर लाल दाने,96,128,66,18,36.6,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00540,27,F,daddurlu,95,114,66,16,37.1,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00541,71,F,त्वचा पर खुजली और चकत्ते,99,115,78,16,37.0,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00542,29,M,abdminal pain,98,147,90,20,38.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00543,47,F,red patches on arms and back,95,114,88,20,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00544,75,M,red patches on arms and back,99,134,81,14,36.7,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00545,70,F,दिल का दौरा,92,169,90,18,37.1,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00546,38,M,itching skin rash,96,135,66,20,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00547,33,F,acute abdominal pain,95,131,112,18,38.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00548,75,M,कपकपी के साथ बुखार,97,151,88,23,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00549,69,F,कपकपी के साथ बुखार,99,145,98,19,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00550,51,M,soar throte,97,112,78,17,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00551,22,M,గొంతు నొప్పి మింగలేకపోవడం,99,123,81,14,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00552,25,F,benakadam,96,122,70,20,36.5,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00553,57,F,ఎర్రటి మచ్చలు,97,115,90,20,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00554,18,M,gunde noppi,95,137,107,21,38.0,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00555,18,M,heart attack pain,92,147,85,24,39.0,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00556,30,M,ear pain,97,114,79,20,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00557,33,M,allergic hives no breathing issue,97,122,91,18,36.7,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00558,64,F,ear pain,95,125,77,17,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00559,44,F,pregnant with pelvic pain,95,144,100,18,38.3,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00560,10,F,baby warm not drinking milk,99,147,111,24,37.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00561,41,F,ear pain,96,119,71,18,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00562,37,M,itching skin rash,96,110,66,18,37.1,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00563,66,M,chaati me dard,91,171,99,26,37.4,15,2,2,99.9,Cardiology,EMERGENT
+PAT-00564,56,M,khujli aur chakte,100,124,94,14,37.2,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00565,25,F,garbhavatiki noppi,93,148,90,20,38.7,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00566,25,M,kadupu noppi,98,149,109,21,37.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00567,6,M,toddler fever and irritability,96,141,109,24,38.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00568,68,F,त्वचा पर खुजली और चकत्ते,95,134,69,17,37.0,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00569,45,M,slight dry cough,98,131,66,20,37.1,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00570,64,F,itching skin rash,97,118,91,14,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00571,40,F,చెవి నొప్పి,96,111,67,16,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00572,37,F,garbhavatiki noppi,96,145,109,20,37.5,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00573,64,M,halka jukam,97,126,85,16,36.5,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00574,33,M,दम फूलना,94,146,94,20,38.7,15,2,2,99.9,Pulmonology,EMERGENT
+PAT-00575,47,M,burning hot,96,151,98,23,37.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00576,10,F,పాలు తాగడం లేదు ఏడుస్తున్నాడు,97,145,100,22,39.2,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00577,3,M,bby fever,100,140,99,19,38.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00578,54,F,breathlessness,92,128,89,22,38.0,15,2,2,99.4,Pulmonology,EMERGENT
+PAT-00579,1,F,बच्चे को बुखार,97,151,90,19,37.5,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00580,75,F,कपकपी के साथ बुखार,98,148,111,21,38.8,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00581,69,F,twised ankel,98,122,93,15,36.8,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00582,58,F,చెవి నొప్పి,99,130,68,19,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00583,25,M,chinna debba,95,116,90,16,37.1,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00584,49,M,sharp belly pain,97,138,90,21,39.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00585,27,M,చర్మంపై దురద మరియు దద్దుర్లు,97,114,67,20,37.2,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00586,64,F,chaati me dard,92,156,105,24,37.3,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00587,50,F,itching skin rash,95,120,66,16,36.8,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00588,55,F,pregnant with pelvic pain,92,142,109,19,38.0,15,2,2,99.8,OB/GYN,EMERGENT
+PAT-00589,4,F,పిల్లాడికి జ్వరం,99,125,86,21,39.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00590,34,F,చెవి నొప్పి,97,116,85,20,36.4,15,4,4,100.0,ENT,ROUTINE
+PAT-00591,64,F,belly ache severe,98,141,104,19,39.0,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00592,39,M,red patches on arms and back,98,110,75,18,36.9,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00593,7,M,pilladiki jwaram,100,142,87,23,39.0,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00594,7,M,child crying with warm forehead,100,139,88,18,39.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00595,23,F,उंगली में हल्की चोट,100,125,72,15,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00596,25,F,उंगली में हल्की चोट,99,115,80,18,36.9,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00597,34,M,toe injury while walking,99,118,90,19,37.1,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00598,59,M,अस्थमा का दौरा,94,138,112,21,37.7,15,2,2,99.8,Pulmonology,EMERGENT
+PAT-00599,21,F,mild runny nose,98,120,79,18,36.7,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00600,28,F,mild runny nose,97,130,85,14,36.4,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00601,71,M,చర్మంపై దురద మరియు దద్దుర్లు,97,117,90,18,37.0,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00602,42,F,slight dry cough,100,114,90,14,37.1,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00603,36,F,छाती में दर्द,95,149,104,18,37.9,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00604,2,F,बच्चे को बुखार,100,125,110,23,38.4,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00605,75,M,angina,96,138,96,20,38.7,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00606,50,F,fever with severe chills,97,142,113,22,37.8,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00607,61,M,ear pain,95,127,81,15,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00608,62,F,ear pain,99,128,75,19,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00609,32,M,small bruise,100,117,87,15,36.9,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00610,41,M,slight dry cough,95,127,65,16,36.5,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00611,74,F,sharp belly pain,100,152,95,19,37.8,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00612,6,M,bby fever,97,136,92,21,38.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00613,30,F,mild runny nose,100,129,75,16,37.2,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00614,21,F,rigid abdomen,96,155,101,24,37.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00615,66,F,गले में खराश और निगलने में दर्द,98,115,79,18,37.0,15,4,4,100.0,ENT,ROUTINE
+PAT-00616,4,M,toddler fever and irritability,96,132,112,21,37.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00617,36,F,గుండెలో బరువుగా ఉంది,96,143,92,20,38.3,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00618,38,F,high fever,98,139,90,18,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00619,32,M,ఎర్రటి మచ్చలు,95,111,76,14,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00620,72,F,wrist sprain,95,119,74,20,37.0,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00621,73,F,हल्की खांसी,96,133,88,15,36.8,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00622,45,F,सीने में दर्द,93,152,99,21,38.1,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00623,39,M,ఎర్రటి మచ్చలు,98,134,86,17,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00624,31,F,दिल का दौरा,94,144,110,21,36.8,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00625,29,F,pregnancy with mild spotting,92,144,107,24,37.5,15,2,2,99.8,OB/GYN,EMERGENT
+PAT-00626,47,M,minor finger cut,97,115,65,18,37.1,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00627,42,M,చీలమండ బెణకడం,96,119,71,20,37.1,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00628,35,M,red patches on arms and back,95,112,79,15,36.9,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00629,36,F,seene me dard,94,147,111,23,38.2,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00630,47,F,skn rash,100,128,87,15,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00631,22,M,ear pain,98,127,89,17,37.2,15,4,4,100.0,ENT,ROUTINE
+PAT-00632,50,M,కడుపులో తీవ్రమైన నొప్పి,98,145,87,18,38.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00633,42,F,chest pane,94,175,90,19,36.7,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00634,56,M,కడుపులో తీవ్రమైన నొప్పి,96,142,88,20,37.8,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00635,11,M,child crying with warm forehead,98,151,86,23,38.2,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00636,41,M,minor finger cut,96,123,65,14,37.2,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00637,28,F,third trimester abdominal cramping,93,141,98,18,38.9,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00638,25,M,చర్మంపై దురద మరియు దద్దుర్లు,96,120,76,14,36.4,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00639,59,F,सांस लेने में तकलीफ,92,131,113,18,38.0,15,2,2,98.7,Pulmonology,EMERGENT
+PAT-00640,38,F,daddurlu,100,114,87,20,36.5,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00641,46,F,గర్భవతికి కడుపు నొప్పి,95,148,105,22,38.4,15,2,2,97.9,OB/GYN,EMERGENT
+PAT-00642,33,F,minor finger cut,96,111,67,18,36.7,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00643,8,F,bby fever,96,145,95,20,38.4,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00644,31,M,sharp belly pain,100,146,110,19,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00645,22,M,severe wheezing,92,155,89,23,37.7,15,2,2,99.4,Pulmonology,EMERGENT
+PAT-00646,37,M,rigors,100,138,92,19,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00647,41,F,చీలమండ బెణకడం,98,124,80,15,36.8,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00648,66,F,असहनीय पेट दर्द,99,142,89,22,37.9,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00649,26,F,शरीर पर लाल दाने,96,116,94,15,36.4,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00650,41,F,itching skin rash,98,128,85,16,36.7,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00651,67,F,ఎర్రటి మచ్చలు,99,130,80,19,37.0,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00652,58,M,sprained ankel,100,114,85,19,36.9,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00653,18,M,caugh,95,122,87,19,37.0,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00654,34,F,ఒళ్ళు కాలిపోతోంది,99,153,106,22,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00655,70,M,itching skin rash,97,133,71,19,37.0,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00656,51,F,itching skin rash,100,123,88,16,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00657,54,M,wrist sprain,96,133,66,15,37.0,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00658,36,M,wrist sprain,98,112,73,14,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00659,60,M,हल्की खरोंच,95,135,81,15,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00660,41,F,red patches on arms and back,97,121,72,20,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00661,53,F,lethargic,91,89,112,23,37.8,5,1,1,100.0,Emergency / Resuscitation,CRITICAL
+PAT-00662,38,F,itchy rash,96,122,80,18,36.7,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00663,73,M,abdminal pain,96,127,110,21,38.9,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00664,33,M,ere pain,96,131,89,15,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00665,64,F,miner cut,100,131,95,17,36.9,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00666,54,M,kadupu noppi,100,154,97,20,38.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00667,23,F,sharp belly pain,100,131,114,22,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00668,4,F,పిల్లాడికి జ్వరం,98,136,109,20,38.4,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00669,31,M,भ्रमित स्थिति,95,89,73,26,36.5,4,1,1,100.0,Emergency / Resuscitation,CRITICAL
+PAT-00670,48,M,allergic hives no breathing issue,98,122,87,16,37.2,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00671,72,F,दिल का दौरा,95,146,111,20,39.2,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00672,22,F,allergic hives no breathing issue,97,116,94,19,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00673,46,F,extreme cramps,97,131,91,19,38.8,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00674,71,M,allergic hives no breathing issue,95,125,76,14,37.2,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00675,4,M,bby fever,95,140,97,19,38.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00676,58,F,చర్మంపై దురద మరియు దద్దుర్లు,97,113,68,14,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00677,62,M,red patches on arms and back,99,125,77,15,36.6,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00678,43,F,mild runny nose,95,128,91,18,37.0,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00679,69,F,breathlessness,92,143,89,18,38.6,15,2,2,100.0,Pulmonology,EMERGENT
+PAT-00680,52,M,itchy rash,98,117,65,19,36.4,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00681,51,F,itching skin rash,99,116,81,18,36.9,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00682,56,M,nasal congestion,99,114,73,16,36.5,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00683,45,M,చర్మంపై దురద మరియు దద్దుర్లు,99,130,67,15,37.2,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00684,28,F,చర్మంపై దురద మరియు దద్దుర్లు,96,123,90,16,36.4,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00685,22,F,durada,100,120,76,14,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00686,24,M,toe injury while walking,96,119,88,18,36.5,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00687,28,F,chest pain,95,150,96,19,38.3,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00688,1,F,toddler fever and irritability,100,146,92,24,38.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00689,63,M,itching skin rash,97,112,92,19,36.7,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00690,54,M,nasal congestion,95,127,74,19,37.0,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00691,74,M,గొంతు నొప్పి మింగలేకపోవడం,98,116,84,14,37.0,15,4,4,100.0,ENT,ROUTINE
+PAT-00692,28,M,disnea,93,151,96,18,38.4,15,2,2,99.4,Pulmonology,EMERGENT
+PAT-00693,61,M,minor finger cut,99,113,89,20,36.6,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00694,50,M,ఎర్రటి మచ్చలు,98,125,92,18,36.7,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00695,7,F,बच्चे को बुखार,95,140,98,18,37.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00696,34,F,garbhavatiki noppi,93,136,97,21,38.1,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00697,40,F,acute abdominal pain,95,152,113,20,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00698,60,M,हल्की खांसी,98,113,73,19,36.8,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00699,50,F,itching skin rash,96,113,95,14,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00700,7,F,baby warm not drinking milk,97,127,100,20,37.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00701,62,M,दम फूलना,95,147,100,19,38.7,15,2,2,99.9,Pulmonology,EMERGENT
+PAT-00702,26,F,కడుపులో తీవ్రమైన నొప్పి,95,154,91,20,38.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00703,4,F,toddler fever and irritability,98,141,86,21,38.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00704,38,M,उंगली में हल्की चोट,96,111,65,14,36.6,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00705,39,F,చేతి వేలికి చిన్న గాయం,95,110,86,14,36.7,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00706,55,F,miner cut,95,130,69,14,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00707,52,F,sneezing and throat irritation,97,134,80,19,36.8,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00708,6,F,baby warm not drinking milk,100,154,88,23,37.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00709,36,M,toe injury while walking,99,132,90,14,37.0,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00710,53,F,त्वचा पर खुजली और चकत्ते,98,116,73,18,36.4,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00711,37,M,itching skin rash,97,127,73,19,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00712,26,F,toe injury while walking,95,116,72,19,36.4,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00713,34,M,difficulty swallowing with sore throat,98,120,74,18,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00714,60,M,చర్మంపై దురద మరియు దద్దుర్లు,100,122,87,19,37.1,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00715,3,F,शिशु रो रहा है और शरीर गर्म है,96,138,108,23,37.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00716,54,F,daggu,100,119,85,15,36.6,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00717,59,F,high fever,95,129,101,23,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00718,26,M,twisted ankle,95,130,69,16,37.0,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00719,48,F,दिल का दौरा,93,140,95,20,37.9,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00720,56,M,chest pressure,95,140,94,24,36.7,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00721,11,M,child crying with warm forehead,98,132,88,19,39.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00722,75,M,తేలికపాటి జలుబు,99,123,70,15,36.9,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00723,35,F,pet me tez dard,100,133,114,20,38.8,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00724,70,M,burning hot,95,155,98,22,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00725,62,F,చర్మంపై దురద మరియు దద్దుర్లు,99,120,85,20,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00726,52,M,daddurlu,98,132,83,14,36.8,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00727,41,F,seene me dard,93,154,86,18,38.1,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00728,33,M,చేతి వేలికి చిన్న గాయం,96,114,88,14,37.2,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00729,55,M,ear pain,98,115,84,20,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00730,66,M,దగ్గు,98,133,69,19,36.8,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00731,20,F,garbhavatiki noppi,96,141,90,24,37.5,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00732,32,F,ear pain,96,126,67,16,37.2,15,4,4,100.0,ENT,ROUTINE
+PAT-00733,10,M,toddler fever and irritability,100,135,100,21,38.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00734,56,F,सांस नहीं आ रही,92,130,94,19,37.6,15,2,2,99.4,Pulmonology,EMERGENT
+PAT-00735,35,M,slight dry cough,99,128,66,18,36.4,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00736,30,F,daddurlu,98,114,76,19,36.7,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00737,8,M,పిల్లాడికి జ్వరం,97,146,89,19,37.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00738,10,F,pilladiki jwaram,98,135,89,24,38.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00739,22,M,daddurlu,99,113,80,19,36.5,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00740,28,M,వణుకుతో కూడిన జ్వరం,97,136,96,22,37.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00741,59,M,allergic hives no breathing issue,95,111,80,18,37.1,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00742,41,M,sprained ankel,100,124,81,17,37.1,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00743,72,M,wrist sprain,97,128,70,17,37.1,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00744,24,M,red patches on arms and back,96,122,68,19,36.6,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00745,25,F,allergic hives no breathing issue,98,114,82,14,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00746,68,F,శ్వాస ఆడటం లేదు,95,131,86,19,39.1,15,2,2,99.9,Pulmonology,EMERGENT
+PAT-00747,23,F,asthma attack,95,141,98,24,38.6,15,2,2,99.9,Pulmonology,EMERGENT
+PAT-00748,28,M,rigors,97,140,100,21,39.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00749,22,M,chhike,97,133,91,19,36.4,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00750,34,M,पैर मुड़ना,98,114,92,20,36.9,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00751,56,F,small bruise,96,116,71,16,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00752,59,F,tez bukhar,98,136,96,21,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00753,9,F,పిల్లాడికి జ్వరం,98,146,112,20,38.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00754,24,F,swasa aadadam ledu,96,145,88,22,38.4,15,2,2,99.7,Pulmonology,EMERGENT
+PAT-00755,25,M,daddurlu,98,135,76,14,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00756,36,F,difficulty swallowing with sore throat,100,135,74,16,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00757,60,F,పక్షవాతం లక్షణాలు,95,180,97,20,37.2,11,1,1,100.0,Neurology,CRITICAL
+PAT-00758,64,M,చీలమండ బెణకడం,98,115,81,16,36.6,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00759,34,M,చెవి నొప్పి,97,112,67,15,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00760,54,F,chhike,95,114,88,19,36.9,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00761,64,F,చిన్న దెబ్బ,97,118,66,19,37.1,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00762,27,F,sprained ankel,97,112,67,15,37.1,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00763,49,M,सीने में दर्द,93,137,98,23,38.6,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00764,87,M,सांस नहीं आ रही,83,139,140,33,37.4,13,1,1,100.0,Pulmonology,CRITICAL
+PAT-00765,50,M,ear pain,96,113,76,20,36.4,15,4,4,100.0,ENT,ROUTINE
+PAT-00766,40,F,acute abdominal pain,98,140,110,23,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00767,35,F,allergic hives no breathing issue,95,134,90,18,36.5,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00768,6,M,పిల్లాడికి జ్వరం,99,131,98,21,38.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00769,55,F,small bruise,97,130,91,18,36.7,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00770,41,F,గర్భధారణ సమయంలో రక్తస్రావం,94,135,109,19,37.5,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00771,53,M,extreme cramps,98,131,104,20,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00772,38,F,chil fever,96,150,86,19,38.3,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00773,42,M,difficulty swallowing with sore throat,99,110,74,14,37.1,15,4,4,100.0,ENT,ROUTINE
+PAT-00774,19,F,pregnancy with mild spotting,92,151,88,21,38.7,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00775,7,F,chld fevr,100,152,100,21,38.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00776,38,F,छाती में दर्द,93,131,87,19,38.9,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00777,37,M,angina,94,144,107,20,38.0,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00778,74,F,ఎర్రటి మచ్చలు,100,113,86,17,36.9,15,5,4,58.1,Dermatology,ROUTINE
+PAT-00779,63,M,తీవ్రమైన జ్వరం,97,152,111,22,38.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00780,60,M,substernal pain,95,131,97,24,37.7,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00781,63,F,red patches on arms and back,100,126,92,15,37.1,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00782,30,M,त्वचा पर खुजली और चकत्ते,97,131,70,17,37.2,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00783,19,F,toe injury while walking,96,125,65,16,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00784,9,F,toddler fever and irritability,95,136,93,21,37.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00785,51,F,high fevr,99,146,88,21,38.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00786,22,M,small bruise,97,129,93,15,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00787,10,F,baby warm,100,130,88,18,38.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00788,39,F,chest tightness,93,140,106,18,38.1,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00789,40,F,daddurlu,99,117,80,14,36.5,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00790,67,M,కడుపు పట్టేయడం,95,148,110,20,38.3,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00791,37,F,చర్మంపై దురద మరియు దద్దుర్లు,99,129,86,20,36.5,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00792,40,F,చీలమండ బెణకడం,95,133,83,15,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00793,52,F,red patches on arms and back,99,131,73,15,37.1,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00794,39,M,soar throte,98,128,79,20,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00795,57,M,red patches on arms and back,97,112,74,17,36.4,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00796,60,M,दम फूलना,92,136,89,20,38.8,15,2,2,100.0,Pulmonology,EMERGENT
+PAT-00797,55,M,ఎర్రటి మచ్చలు,97,125,66,15,36.6,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00798,37,F,asthma attack,93,146,98,22,38.9,15,2,2,100.0,Pulmonology,EMERGENT
+PAT-00799,37,M,red patches on arms and back,97,130,94,18,36.8,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00800,61,F,कान में दर्द,98,124,78,16,37.2,15,4,4,100.0,ENT,ROUTINE
+PAT-00801,68,M,khujli aur chakte,99,114,76,18,36.4,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00802,47,M,difficulty swallowing with sore throat,95,130,73,14,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00803,1,M,baby warm,99,148,102,19,37.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00804,69,F,చీలమండ బెణకడం,99,113,71,19,36.4,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00805,71,F,chest pane,95,128,114,18,38.2,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00806,57,M,చెవి నొప్పి,98,110,85,15,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00807,48,F,red patches on arms and back,97,128,68,19,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00808,36,F,కడుపు పట్టేయడం,95,125,97,22,37.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00809,47,F,కడుపు నొప్పి,97,136,90,18,38.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00810,6,F,పాలు తాగడం లేదు ఏడుస్తున్నాడు,100,129,110,24,38.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00811,29,F,kaan me dard,96,128,75,19,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00812,60,M,tivramaina kadupu noppi,98,135,100,23,39.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00813,66,F,వణుకుతో కూడిన జ్వరం,95,133,104,18,37.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00814,38,M,दिल का दौरा,95,145,89,21,37.8,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00815,2,M,pilladiki jwaram,100,131,88,23,38.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00816,61,F,substernal pain,93,143,91,24,38.4,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00817,54,M,toe injury while walking,96,119,81,20,36.5,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00818,46,M,paralisis,95,199,74,18,36.7,14,1,1,100.0,Neurology,CRITICAL
+PAT-00819,55,F,twisted ankle,97,111,65,19,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00820,74,M,difficulty swallowing with sore throat,96,135,67,17,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00821,2,M,child crying with warm forehead,98,145,92,22,38.2,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00822,60,M,dyspnea,86,124,113,35,37.1,13,1,1,99.9,Pulmonology,CRITICAL
+PAT-00823,75,F,pregnant with pelvic pain,94,135,91,20,39.1,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00824,54,M,ear pain,95,117,88,20,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00825,36,M,toe injury while walking,99,131,80,17,36.9,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00826,46,F,mild runny nose,97,119,82,20,36.8,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00827,49,F,कान में दर्द,95,114,94,15,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00828,63,M,saas lene me takleef,78,117,112,35,37.5,14,1,1,99.9,Pulmonology,CRITICAL
+PAT-00829,73,F,కడుపు పట్టేయడం,98,132,86,21,38.1,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00830,60,F,muh tedha hona,98,186,71,17,37.1,13,1,1,100.0,Neurology,CRITICAL
+PAT-00831,36,F,ear discharge and fullness,98,128,88,18,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00832,2,M,toddler fever and irritability,99,143,95,20,37.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00833,64,F,strok,95,166,99,19,36.5,10,1,1,100.0,Neurology,CRITICAL
+PAT-00834,35,F,पैर मुड़ना,95,118,70,17,36.6,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00835,25,M,చీలమండ బెణకడం,96,124,81,19,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00836,79,F,numbness one side,94,193,102,16,36.9,11,1,1,100.0,Neurology,CRITICAL
+PAT-00837,27,M,tivramaina jwaram,97,136,110,22,39.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00838,36,M,पेट में मरोड़,99,144,88,18,38.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00839,71,M,sprained ankel,100,122,69,19,37.2,15,5,4,71.4,Orthopedics,ROUTINE
+PAT-00840,64,M,गले में खराश और निगलने में दर्द,99,129,66,20,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00841,39,M,rigid abdomen,97,135,99,19,38.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00842,59,F,khujli aur chakte,99,135,79,15,36.6,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00843,10,F,बच्चे को बुखार,97,128,95,20,38.2,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00844,28,M,mild runny nose,98,127,89,16,37.0,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00845,50,F,slight dry cough,98,122,69,16,37.0,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00846,44,F,చిన్న దెబ్బ,100,119,78,20,37.0,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00847,41,F,गर्भावस्था में पेट दर्द,95,139,95,21,38.4,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00848,75,F,pregnant with pelvic pain,96,152,101,22,38.0,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00849,31,F,ear pain,99,129,83,16,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00850,36,F,acute abdominal pain,99,154,88,24,38.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00851,75,M,substernal pain,92,151,111,21,38.1,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00852,25,M,miner cut,98,118,80,17,37.1,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00853,64,M,చిన్న దెబ్బ,97,120,81,15,36.8,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00854,63,F,గుండె నొప్పి,93,146,102,24,39.1,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00855,30,F,itching skin rash,98,115,80,15,36.6,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00856,76,M,chest tightness,91,179,101,24,37.1,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00857,71,M,कपकपी के साथ बुखार,97,140,100,23,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00858,44,F,miner cut,97,123,86,15,36.5,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00859,71,F,शरीर पर लाल दाने,99,117,86,17,36.6,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00860,44,F,వణుకుతో కూడిన జ్వరం,98,133,97,21,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00861,52,M,पेट में मरोड़,100,155,115,18,37.7,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00862,67,M,red pacthes,100,116,81,14,36.8,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00863,39,F,rigors,96,132,108,22,37.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00864,36,F,చేతి వేలికి చిన్న గాయం,95,134,85,15,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00865,22,M,ముక్కు కారడం,99,134,87,19,36.4,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00866,71,F,पैर मुड़ना,97,133,81,17,36.6,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00867,32,F,belly ache severe,99,134,100,20,38.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00868,32,M,red patches on arms and back,98,124,72,20,36.8,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00869,53,M,nasal congestion,96,125,95,20,36.5,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00870,34,F,దమ్ము,94,151,95,23,37.6,15,2,2,99.7,Pulmonology,EMERGENT
+PAT-00871,52,F,त्वचा पर खुजली और चकत्ते,97,120,72,19,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00872,28,M,acute abdominal pain,96,152,99,19,37.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00873,43,M,చేతి వేలికి చిన్న గాయం,97,119,78,14,36.8,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00874,63,F,ear discharge and fullness,99,125,73,18,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00875,38,F,mild runny nose,96,112,80,15,36.6,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00876,56,M,shortness of breath,92,142,105,20,38.1,15,2,2,98.7,Pulmonology,EMERGENT
+PAT-00877,64,F,చర్మంపై దురద మరియు దద్దుర్లు,97,122,89,18,36.8,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00878,29,F,daddurlu,99,135,69,14,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00879,18,M,पैर मुड़ना,96,135,94,14,36.5,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00880,69,F,garbhavastha me dard,95,140,106,21,38.0,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00881,40,F,hot feber,99,127,101,20,39.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00882,61,M,red patches on arms and back,99,121,85,17,36.4,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00883,42,F,toe injury while walking,96,116,65,19,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00884,50,M,fever with severe chills,99,145,86,20,38.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00885,48,F,allergic hives no breathing issue,98,133,80,15,36.4,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00886,71,M,tivramaina jwaram,95,147,105,21,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00887,3,F,పిల్లాడికి జ్వరం,99,146,115,18,38.2,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00888,35,M,ear discharge and fullness,96,118,66,17,37.0,15,4,4,100.0,ENT,ROUTINE
+PAT-00889,47,M,fever with severe chills,99,128,87,21,37.8,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00890,47,M,వణుకుతో కూడిన జ్వరం,100,151,94,19,38.8,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00891,54,F,sharp belly pain,98,131,111,19,39.0,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00892,41,F,gontu noppi,100,130,79,18,36.4,15,4,4,100.0,ENT,ROUTINE
+PAT-00893,40,F,benakadam,96,126,87,16,36.5,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00894,60,M,allergic hives no breathing issue,98,128,79,15,36.7,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00895,28,F,minor finger cut,98,130,75,16,36.5,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00896,47,F,third trimester abdominal cramping,96,138,107,22,38.3,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00897,20,M,itching skin rash,99,123,78,14,37.2,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00898,4,M,child crying with warm forehead,96,150,95,23,39.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00899,27,M,ear pain,96,112,74,16,36.6,15,4,4,100.0,ENT,ROUTINE
+PAT-00900,18,F,miner cut,96,125,68,16,37.0,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00901,42,M,chinna debba,97,114,94,20,37.0,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00902,55,M,ear pain,96,134,70,18,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00903,20,M,sharp belly pain,97,135,87,21,38.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00904,44,M,allergic hives no breathing issue,96,126,86,17,36.8,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00905,26,F,dyspnea,95,145,100,18,38.2,15,2,2,99.7,Pulmonology,EMERGENT
+PAT-00906,50,F,wrist sprain,98,127,75,19,36.5,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00907,39,F,छाती में दर्द,93,144,111,22,38.2,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00908,61,F,pregnancy with mild spotting,94,135,98,20,38.8,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00909,37,M,shortness of breath,96,148,96,18,38.4,15,2,2,99.7,Pulmonology,EMERGENT
+PAT-00910,49,F,soar throte,97,132,79,16,37.1,15,4,4,100.0,ENT,ROUTINE
+PAT-00911,64,F,గర్భధారణ సమయంలో రక్తస్రావం,92,148,101,21,38.1,15,2,2,99.8,OB/GYN,EMERGENT
+PAT-00912,27,M,ముఖం వంకర పోవడం,95,184,86,20,36.9,11,1,1,100.0,Neurology,CRITICAL
+PAT-00913,35,M,ఎర్రటి మచ్చలు,97,111,86,18,37.1,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00914,26,F,ear discharge and fullness,97,135,84,17,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00915,8,F,शिशु रो रहा है और शरीर गर्म है,100,142,95,22,38.3,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00916,72,F,rigors,96,130,107,22,37.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00917,65,F,extreme cramps,97,135,109,20,38.6,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00918,66,F,extreme cramps,99,132,100,23,39.1,15,3,3,99.9,General Medicine,ROUTINE
+PAT-00919,54,F,acute abdominal pain,96,149,90,24,38.4,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00920,24,F,गले में खराश और निगलने में दर्द,99,122,82,18,37.1,15,4,4,100.0,ENT,ROUTINE
+PAT-00921,36,M,చీలమండ బెణకడం,99,134,75,20,36.9,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00922,30,M,చీలమండ బెణకడం,99,129,69,15,36.9,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00923,61,M,khujli aur chakte,97,129,88,14,36.8,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00924,63,M,तेज बुखार,97,127,94,19,37.9,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00925,59,M,skn rash,99,115,75,20,36.8,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00926,22,F,pair mudna,97,113,82,19,36.8,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00927,41,F,minor finger cut,100,130,85,18,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00928,41,F,heart attack pain,94,132,114,19,37.9,15,2,2,100.0,Cardiology,EMERGENT
+PAT-00929,66,F,చిన్న దెబ్బ,97,124,87,16,37.0,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00930,55,M,shortnes of breath,81,136,133,42,37.7,14,1,1,100.0,Pulmonology,CRITICAL
+PAT-00931,65,M,minor finger cut,96,122,74,18,36.9,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00932,9,F,शिशु रो रहा है और शरीर गर्म है,98,130,113,22,38.6,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00933,28,F,itching skin rash,96,122,93,17,36.9,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00934,11,M,baby warm,97,143,99,21,38.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00935,24,F,third trimester abdominal cramping,94,133,87,22,39.1,15,2,2,100.0,OB/GYN,EMERGENT
+PAT-00936,62,M,చిన్న దెబ్బ,96,124,87,19,36.4,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00937,75,M,chinna debba,99,116,66,16,36.6,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00938,68,M,allergic hives no breathing issue,96,124,68,17,36.8,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00939,45,M,గొంతు నొప్పి మింగలేకపోవడం,100,130,89,17,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00940,58,M,allergic hives no breathing issue,97,126,80,18,37.2,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00941,58,F,daddurlu,95,115,95,20,36.4,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00942,61,F,shortness of breath,92,135,99,24,37.8,15,2,2,99.4,Pulmonology,EMERGENT
+PAT-00943,2,F,toddler fever and irritability,99,146,103,19,38.1,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00944,11,F,pilladiki jwaram,100,154,92,20,38.3,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00945,38,F,ere pain,97,122,83,17,36.4,15,4,4,100.0,ENT,ROUTINE
+PAT-00946,67,F,fever with severe chills,95,131,107,24,38.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00947,4,M,toddler fever and irritability,99,152,99,22,37.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00948,67,F,हल्की सर्दी,100,117,80,19,37.2,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00949,46,F,jwaram chali,95,153,89,21,38.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00950,23,F,kaan me dard,96,127,83,16,36.8,15,4,4,100.0,ENT,ROUTINE
+PAT-00951,38,F,difficulty swallowing with sore throat,98,116,93,19,36.7,15,4,4,100.0,ENT,ROUTINE
+PAT-00952,56,M,त्वचा पर खुजली और चकत्ते,96,123,85,14,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00953,54,F,उंगली में हल्की चोट,95,135,92,18,37.0,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00954,67,M,कान में दर्द,99,126,90,15,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00955,27,F,gontu noppi,95,128,85,15,36.8,15,4,4,100.0,ENT,ROUTINE
+PAT-00956,19,M,सांस नहीं आ रही,93,129,98,20,39.0,15,2,2,100.0,Pulmonology,EMERGENT
+PAT-00957,10,M,baby warm not drinking milk,96,131,89,24,37.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00958,73,F,sprained ankel,96,116,71,19,36.5,15,5,4,71.4,Orthopedics,ROUTINE
+PAT-00959,52,F,behoshi,91,84,61,24,37.4,5,1,1,100.0,Emergency / Resuscitation,CRITICAL
+PAT-00960,25,M,ear pain,96,125,95,14,37.0,15,4,4,100.0,ENT,ROUTINE
+PAT-00961,50,M,tivramaina jwaram,98,137,85,18,38.2,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00962,4,M,bby fever,100,137,110,23,37.5,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00963,26,M,tivramaina kadupu noppi,96,149,100,23,37.6,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00964,29,M,sprained ankel,99,135,88,15,36.7,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00965,71,F,tez bukhar,99,150,85,20,38.1,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00966,3,M,chld fevr,95,153,96,18,37.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00967,46,M,durada,99,110,85,20,36.8,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00968,8,F,बच्चे को बुखार,100,143,112,24,37.7,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00969,74,M,red pacthes,96,115,73,15,36.7,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00970,38,F,halka jukam,97,128,69,19,37.0,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00971,32,F,gunde noppi,91,194,115,25,36.7,15,2,2,99.9,Cardiology,EMERGENT
+PAT-00972,52,F,durada,95,130,73,19,36.7,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00973,60,F,toe injury while walking,99,135,67,16,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00974,25,F,sprained ankel,96,119,76,20,36.7,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00975,30,M,allergic hives no breathing issue,100,110,89,15,37.0,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00976,41,M,ear discharge and fullness,100,121,70,18,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00977,72,M,हल्की खरोंच,97,122,95,14,36.7,15,5,4,71.4,Orthopedics,ROUTINE
+PAT-00978,18,M,చర్మంపై దురద మరియు దద్దుర్లు,97,131,82,19,36.6,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00979,66,M,small bruise,98,130,70,20,36.7,15,4,4,71.4,Orthopedics,ROUTINE
+PAT-00980,25,M,high fever,96,146,89,21,38.8,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00981,48,M,chevi noppi,100,113,74,17,36.5,15,4,4,100.0,ENT,ROUTINE
+PAT-00982,58,F,mild runny nose,98,132,70,18,37.0,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00983,73,F,slight dry cough,100,111,78,17,37.1,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00984,40,M,शरीर पर लाल दाने,95,135,87,14,36.6,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00985,53,F,twisted ankle,99,131,92,18,36.4,15,5,4,69.9,Orthopedics,ROUTINE
+PAT-00986,7,F,बच्चे को बुखार,100,136,86,23,38.9,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00987,29,F,pregnant with pelvic pain,92,135,115,23,38.0,15,2,2,99.8,OB/GYN,EMERGENT
+PAT-00988,33,F,చర్మంపై దురద మరియు దద్దుర్లు,98,120,66,20,37.0,15,4,4,56.4,Dermatology,ROUTINE
+PAT-00989,65,F,allergic hives no breathing issue,97,115,91,20,37.1,15,4,4,58.1,Dermatology,ROUTINE
+PAT-00990,11,F,baby warm not drinking milk,97,145,100,22,38.8,15,3,3,100.0,Pediatrics,ROUTINE
+PAT-00991,66,M,hot feber,96,128,85,20,38.5,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00992,30,M,small bruise,95,131,84,19,37.1,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-00993,72,F,sneezing and throat irritation,99,120,67,18,36.8,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00994,33,M,mild runny nose,98,116,90,19,36.4,15,5,5,100.0,General Medicine,ROUTINE
+PAT-00995,30,F,gontu noppi,96,128,81,20,36.9,15,4,4,100.0,ENT,ROUTINE
+PAT-00996,41,M,kampkampi bukhar,97,127,96,22,38.0,15,3,3,100.0,General Medicine,ROUTINE
+PAT-00997,63,F,చర్మంపై దురద మరియు దద్దుర్లు,99,135,68,16,37.0,15,5,4,56.4,Dermatology,ROUTINE
+PAT-00998,46,F,third trimester abdominal cramping,95,127,98,22,37.5,15,2,2,99.9,OB/GYN,EMERGENT
+PAT-00999,61,F,చిన్న దెబ్బ,95,128,73,19,37.2,15,4,4,69.9,Orthopedics,ROUTINE
+PAT-01000,31,F,उंगली में हल्की चोट,97,131,87,18,36.7,15,5,4,69.9,Orthopedics,ROUTINE

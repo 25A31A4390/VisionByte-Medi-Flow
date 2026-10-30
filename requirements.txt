@@ -1,0 +1,5 @@
+# Medi Flow - AI OPD Triage Assistant (Track H1)
+# Python ML Dependencies for offline training, evaluation, and test suite
+
+numpy>=1.24.0
+scikit-learn>=1.3.0

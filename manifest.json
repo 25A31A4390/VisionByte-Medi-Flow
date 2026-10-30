@@ -1,0 +1,17 @@
+{
+  "name": "Medi Flow – OPD Triage Decision Support",
+  "short_name": "Medi Flow",
+  "description": "Outpatient Department Triage Decision Support System - Pilot Edition",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2B3590",
+  "icons": [
+    {
+      "src": "./logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
